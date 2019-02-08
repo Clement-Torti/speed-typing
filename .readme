@@ -1,5 +1,9 @@
 taches a faire:
 
+-Faire le page ScoreActivity constituer d'une listView avec les différents scores. Un score contient les informations de la partie mais aussi une PHOTO de la personne qui sera pris en fin de partie. Il faudra donc intégrer des ImageView.
+-Faire les classes métier ScoreReader et ScoreWriter qui lisent dans un fichier texte les scores.
 
+-Coder les autres classes métier (après concertation)
 
 information a partager :
+
