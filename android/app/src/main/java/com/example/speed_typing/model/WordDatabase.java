@@ -1,8 +1,6 @@
 package com.example.speed_typing.model;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,13 +13,12 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 public class WordDatabase {
-    private WordType wordtype;
-    private List<Word> list = new ArrayList<Word>();
+
+    private List<Word> words = new ArrayList<>();
     private Random rand;
 
-    public WordDatabase(WordType wordType, Context context){
+    public WordDatabase(String fileName, Context context){
         String line;
-        wordtype = wordType;
         rand = new Random();
 
         //recuperation de l'asset manager permettant de retrouver les fichiers
@@ -29,23 +26,23 @@ public class WordDatabase {
 
         try{
             //creation buffer
-            InputStream ips = assetManager.open("WordFile/"+wordtype);
+            InputStream ips = assetManager.open(fileName);
             InputStreamReader ipsr = new InputStreamReader(ips);
             BufferedReader br = new BufferedReader(ipsr);
 
             //lecture du fichier
-            while ((line = br.readLine()) != null)
-                    list.add(new Word(line));
+            while ((line = br.readLine()) != null) {
+                words.add(new Word(line));
+            }
 
-            Log.d("test", list.get(1).toString());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public Word getRandomWord(){
-        Log.d("test", String.valueOf(list.size()));
-        int index = rand.nextInt(list.size());
-        return list.get(index);
+        int index = rand.nextInt(words.size());
+        return words.get(index);
     }
 }

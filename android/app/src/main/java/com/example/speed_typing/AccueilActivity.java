@@ -7,8 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.speed_typing.model.Word;
 import com.example.speed_typing.model.WordDatabase;
+import com.example.speed_typing.model.WordFactory;
 import com.example.speed_typing.model.WordType;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class AccueilActivity extends BaseActivity {
 
@@ -25,11 +32,16 @@ public class AccueilActivity extends BaseActivity {
         configureNavigationBtn(startBtn, GameActivity.class);
         configureNavigationBtn(scoresBtn, ScoreActivity.class);
 
-       /* WordDatabase wd = new WordDatabase(WordType.Francais,getApplicationContext());        //mode debug => file not found
-        Log.d("test",wd.getRandomWord().toString());
-        Log.d("test",wd.getRandomWord().toString());
-        Log.d("test",wd.getRandomWord().toString());
-        Log.d("test",wd.getRandomWord().toString());
-        */
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        WordDatabase wd = WordFactory.createWordDatabase(getApplicationContext(), WordType.Anglais);
+        System.out.println(wd.getRandomWord());
+        System.out.println(wd.getRandomWord());
+        System.out.println(wd.getRandomWord());
     }
 }
