@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">speed_typing</string>
+    <string name="app_name">Speed Typing</string>
     <string name="basic_hello">hello world</string>
     <string name="start_btn">Commencer</string>
     <string name="pause_btn">Pause</string>
