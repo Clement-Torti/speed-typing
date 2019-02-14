@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 public class EndGameActivity extends BaseActivity {
 
     private Button homeBtn;
@@ -14,7 +17,7 @@ public class EndGameActivity extends BaseActivity {
         setContentView(R.layout.activity_end_game);
 
         homeBtn = findViewById(R.id.homeBtn);
-        configureNavigationBtn(homeBtn, AccueilActivity.class);
+        configureNavigationBtn(homeBtn, AccueilActivity.class, new HashMap<String, Serializable>());
 
     }
 }

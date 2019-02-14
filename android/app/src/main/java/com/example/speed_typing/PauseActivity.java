@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 public class PauseActivity extends BaseActivity {
 
     private Button cancelBtn;
@@ -16,8 +19,8 @@ public class PauseActivity extends BaseActivity {
 
         cancelBtn = findViewById(R.id.cancelBtn);
         quitBtn = findViewById(R.id.quitBtn);
-        configureNavigationBtn(cancelBtn, GameActivity.class);
-        configureNavigationBtn(quitBtn, AccueilActivity.class);
+        configureNavigationBtn(cancelBtn, GameActivity.class, new HashMap<String, Serializable>());
+        configureNavigationBtn(quitBtn, AccueilActivity.class, new HashMap<String, Serializable>());
 
 
     }

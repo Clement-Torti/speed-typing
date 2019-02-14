@@ -7,9 +7,14 @@ import com.example.speed_typing.model.WordDatabase;
 import com.example.speed_typing.model.WordFactory;
 import com.example.speed_typing.model.WordType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+* Partie doit être serializable pour être passée d'une vue à l'autre
+ */
 public class Partie extends Subject {
     public static final int NB_LIFE = 10;
     private int chrono;

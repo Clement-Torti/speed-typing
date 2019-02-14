@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 public class ScoreActivity extends BaseActivity {
 
     private Button returnBtn;
@@ -14,7 +17,7 @@ public class ScoreActivity extends BaseActivity {
         setContentView(R.layout.activity_score);
 
         returnBtn = findViewById(R.id.returnBtn);
-        configureNavigationBtn(returnBtn, AccueilActivity.class);
+        configureNavigationBtn(returnBtn, AccueilActivity.class, new HashMap<String, Serializable>());
 
     }
 }

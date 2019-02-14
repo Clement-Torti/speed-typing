@@ -8,5 +8,10 @@
     <string name="scores_btn">Scores</string>
     <string name="return_btn">Return</string>
     <string name="home_btn">Home</string>
+    
+    <string-array name="wordsFamily">
+        <item>Français</item>
+        <item>English</item>
+    </string-array>
 
 </resources>

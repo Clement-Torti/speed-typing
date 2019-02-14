@@ -13,5 +13,18 @@ public class WordFactory {
         return new WordDatabase("Francais.txt", context);
     }
 
+    /*
+    * Converti une string du fichier string en WordType
+     */
+    public static WordType getWordType(String texte) {
+
+        switch(texte) {
+            case "Français": return WordType.Francais;
+            case "English": return WordType.Anglais;
+        }
+
+        return WordType.Francais;
+    }
+
 
 }

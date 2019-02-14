@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 public class GameActivity extends BaseActivity {
 
     private Button pauseBtn;
@@ -25,10 +28,7 @@ public class GameActivity extends BaseActivity {
 
 
         pauseBtn = findViewById(R.id.pauseBtn);
-        configureNavigationBtn(pauseBtn, PauseActivity.class);
-
-
-
+        configureNavigationBtn(pauseBtn, PauseActivity.class, new HashMap<String, Serializable>());
 
     }
 }
