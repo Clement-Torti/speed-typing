@@ -6,8 +6,8 @@ import android.widget.Button;
 
 public class PauseActivity extends BaseActivity {
 
-    Button cancelBtn;
-    Button quitBtn;
+    private Button cancelBtn;
+    private Button quitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

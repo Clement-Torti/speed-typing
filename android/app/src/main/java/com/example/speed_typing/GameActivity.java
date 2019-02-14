@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class GameActivity extends BaseActivity {
 
-    Button pauseBtn;
+    private Button pauseBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

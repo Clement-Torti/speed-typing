@@ -6,7 +6,7 @@ import android.widget.Button;
 
 public class ScoreActivity extends BaseActivity {
 
-    Button returnBtn;
+    private Button returnBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

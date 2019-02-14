@@ -19,8 +19,8 @@ import java.io.InputStreamReader;
 
 public class AccueilActivity extends BaseActivity {
 
-    Button startBtn;
-    Button scoresBtn;
+    private Button startBtn;
+    private Button scoresBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

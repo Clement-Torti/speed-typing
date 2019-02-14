@@ -23,6 +23,12 @@
 
         />
 
+    <Spinner
+        android:id="@+id/wordsSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
     <Button
         android:id="@+id/scoresBtn"
         android:layout_width="wrap_content"

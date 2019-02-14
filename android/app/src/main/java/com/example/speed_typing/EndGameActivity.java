@@ -6,7 +6,7 @@ import android.widget.Button;
 
 public class EndGameActivity extends BaseActivity {
 
-    Button homeBtn;
+    private Button homeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

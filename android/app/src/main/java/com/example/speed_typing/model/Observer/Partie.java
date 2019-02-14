@@ -81,4 +81,6 @@ public class Partie extends Subject {
     public void pause() {}
     public void start() {}
 
+    public boolean isEnded() { return NB_LIFE == 0; }
+
 }
