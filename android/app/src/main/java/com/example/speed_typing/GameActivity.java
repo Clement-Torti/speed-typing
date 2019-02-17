@@ -8,10 +8,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.example.speed_typing.model.Observer.IObserver;
+import com.example.speed_typing.model.Observer.Partie;
+import com.example.speed_typing.model.Word;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class GameActivity extends BaseActivity {
+public class GameActivity extends BaseActivity implements IObserver {
 
     private Button pauseBtn;
 
@@ -26,9 +30,20 @@ public class GameActivity extends BaseActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.getSupportActionBar().hide();
 
+        // S'abonner à la partie
+        partie.attach(this);
 
+        // Configuration des boutons
         pauseBtn = findViewById(R.id.pauseBtn);
+
         configureNavigationBtn(pauseBtn, PauseActivity.class, new HashMap<String, Serializable>());
+
+    }
+
+    @Override
+    public void update() {
+        // Récupérer le mot
+        Word word = partie.getLastWord();
 
     }
 }

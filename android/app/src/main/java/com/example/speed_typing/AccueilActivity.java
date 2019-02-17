@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
+import com.example.speed_typing.model.Observer.Partie;
 import com.example.speed_typing.model.Word;
 import com.example.speed_typing.model.WordDatabase;
 import com.example.speed_typing.model.WordFactory;
@@ -22,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AccueilActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
@@ -39,6 +41,7 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
         // Boutons de navigation
         startBtn = findViewById(R.id.startBtn);
         scoresBtn = findViewById(R.id.scoresBtn);
+
         configureNavigationBtn(startBtn, GameActivity.class, new HashMap<String, Serializable>());
         configureNavigationBtn(scoresBtn, ScoreActivity.class, new HashMap<String, Serializable>());
 
@@ -59,11 +62,18 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String texte = parent.getItemAtPosition(position).toString();
+        System.out.println(texte);
         wordType = WordFactory.getWordType(texte);
+
+        // Creation de la partie
+        partie = new Partie(this.getApplicationContext(), wordType);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
+
 }

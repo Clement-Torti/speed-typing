@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,12 +13,13 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-public class WordDatabase {
-
+public class WordDatabase implements Serializable {
+    public static final long serialversionUID = 12348939L;
     private List<Word> words = new ArrayList<>();
     private Random rand;
 
     public WordDatabase(String fileName, Context context){
+
         String line;
         rand = new Random();
 

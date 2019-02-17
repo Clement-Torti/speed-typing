@@ -1,15 +1,30 @@
 package com.example.speed_typing;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.speed_typing.model.Observer.Partie;
+
 import java.io.Serializable;
 import java.util.Map;
 
 public class BaseActivity extends AppCompatActivity {
+    Partie partie;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Récupérer la partie de l'activité précedente
+        if(getIntent().hasExtra("game")) {
+            partie = (Partie) getIntent().getExtras().getSerializable("game");
+        }
+    }
 
     /**
      * Encapsule le code lié à la navigation d'une activité à l'autre par un bouton.
@@ -18,10 +33,13 @@ public class BaseActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent navIntent = new Intent(getApplicationContext(), cls);
                 for(String key: args.keySet()) {
                     navIntent.putExtra(key, args.get(key));
                 }
+                // Le passage de la partie se fait systématiquement
+                navIntent.putExtra("game", partie);
                 startActivity(navIntent);
             }
         });

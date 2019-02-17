@@ -15,7 +15,8 @@ import java.util.List;
 /*
 * Partie doit être serializable pour être passée d'une vue à l'autre
  */
-public class Partie extends Subject {
+public class Partie extends Subject implements Serializable {
+    public static final long serialversionUID = 129348938L;
     public static final int NB_LIFE = 10;
     private int chrono;
     private int nbWordWrite;
@@ -86,6 +87,17 @@ public class Partie extends Subject {
     public void pause() {}
     public void start() {}
 
+    /*
+    * @return retourne true si la partie est fini
+     */
     public boolean isEnded() { return NB_LIFE == 0; }
+
+    /*
+    * @return retourne le dernier mot de la liste displayedWord
+     */
+    public Word getLastWord() {
+        int index  = displayedWord.size() - 1;
+        return displayedWord.get(index);
+    }
 
 }

@@ -1,6 +1,9 @@
 package com.example.speed_typing.model;
 
-public class Word {
+import java.io.Serializable;
+
+public class Word implements Serializable  {
+    public static final long serialversionUID = 129348940L;
     private String text;
 
     protected Word (String txt){

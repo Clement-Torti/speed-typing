@@ -3963,13 +3963,30 @@
 											"height": 13,
 											"text": "+start()",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFo/GaF8xHyKA4=",
+											"_parent": {
+												"$ref": "AAAAAAFopBMi16Fh1UE="
+											},
+											"model": {
+												"$ref": "AAAAAAFo/GaFrBHmLNI="
+											},
+											"font": "Arial;13;0",
+											"left": 693,
+											"top": 954,
+											"width": 186.52587890625,
+											"height": 13,
+											"text": "+getLastWord()",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 688,
 									"top": 844,
 									"width": 196.52587890625,
-									"height": 113
+									"height": 128
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -8455,6 +8472,14 @@
 										"$ref": "AAAAAAFopBMi0qFYHn4="
 									},
 									"name": "start"
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFo/GaFrBHmLNI=",
+									"_parent": {
+										"$ref": "AAAAAAFopBMi0qFYHn4="
+									},
+									"name": "getLastWord"
 								}
 							]
 						},
