@@ -5,8 +5,11 @@ taches a faire:
 
 -Coder les autres classes métier (après concertation)
 
-- Rendre une Partie Serializable pour la transférer d'une vue à l'autre
+- FINI: Rendre une Partie Serializable pour la transférer d'une vue à l'autre
 
+- Coder l'ajout d'une wordView lorsque GameActivity est notifié de l'apparition d'un mot dans Partie
+
+- Coder la classe Timer est attaché partie et GameActivity à celle-ci
 
 information a partager :
 
