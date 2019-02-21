@@ -15,7 +15,7 @@ import java.util.List;
 /*
 * Partie doit être serializable pour être passée d'une vue à l'autre
  */
-public class Partie extends Subject implements Serializable {
+public class Partie extends Subject implements Serializable, IObserver{
     public static final long serialversionUID = 129348938L;
     public static final int NB_LIFE = 10;
     private int chrono;
@@ -81,6 +81,7 @@ public class Partie extends Subject implements Serializable {
     public void addNewWord() {
         Word word = wordDb.getRandomWord();
         displayedWord.add(word);
+
         notifier();
     }
 
@@ -100,4 +101,18 @@ public class Partie extends Subject implements Serializable {
         return displayedWord.get(index);
     }
 
+    public int getChrono() {
+        return chrono;
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void chronoUpdate() {
+        chrono++;
+        addNewWord();
+    }
 }
