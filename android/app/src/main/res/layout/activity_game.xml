@@ -50,7 +50,7 @@
 
 
         <Button
-          android:id="@+id/pauseBtn"
+            android:id="@+id/pauseBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -61,7 +61,7 @@
             android:layout_marginBottom="8dp"
             android:text="@string/pause_btn"
 
-         />
+            />
 
     </TableRow>
 
@@ -71,13 +71,13 @@
         android:gravity="center"
         >
 
-    <LinearLayout
-        android:id="@+id/wordsView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        />
-
+        <RelativeLayout
+            android:id="@+id/wordsView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:backgroundTint="@color/colorWhite"
+            />
     </TableRow>
 
 

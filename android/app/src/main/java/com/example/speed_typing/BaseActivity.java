@@ -33,15 +33,25 @@ public class BaseActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent navIntent = new Intent(getApplicationContext(), cls);
-                for(String key: args.keySet()) {
-                    navIntent.putExtra(key, args.get(key));
-                }
-                // Le passage de la partie se fait systématiquement
-                navIntent.putExtra("game", partie);
-                startActivity(navIntent);
+                navigationButtonAction(cls, args);
             }
         });
+
     }
+
+    /*
+     * Action a exécuter lorsque l'on navigue d'une page à l'autre
+     */
+    protected void navigationButtonAction(final Class<?> cls, final Map<String, Serializable> args) {
+        Intent navIntent = new Intent(getApplicationContext(), cls);
+        for(String key: args.keySet()) {
+            navIntent.putExtra(key, args.get(key));
+        }
+        // Le passage de la partie se fait systématiquement
+        navIntent.putExtra("game", partie);
+        startActivity(navIntent);
+    }
+
+
 }
+
