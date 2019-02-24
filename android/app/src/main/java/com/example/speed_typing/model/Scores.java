@@ -1,5 +1,7 @@
 package com.example.speed_typing.model;
 
+import android.util.Log;
+
 import java.util.Date;
 
 public class Scores {
@@ -15,18 +17,18 @@ public class Scores {
      */
     private String photoPath;
 
-    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere,Date date, String photoPath) {
+    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere, String photoPath) {
+        Log.d("jonathan","contructeur scores");
         this.name = name;
         this.time = time;
         this.nbWordWrite = nbWordWrite;
         this.nbWordFailed = nbWordFailed;
         this.nbCaractere = nbCaractere;
-        this.date = date;
         this.photoPath = photoPath;
     }
 
-    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere, Date date) {
-        this(name, time, nbWordWrite, nbWordFailed, nbCaractere,date, "");
+    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere) {
+        this(name, time, nbWordWrite, nbWordFailed, nbCaractere, "");
     }
 
     /*
@@ -39,4 +41,19 @@ public class Scores {
     public float getNbCaracterePerSec() { return (float)nbCaractere/time; }
 
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
 }

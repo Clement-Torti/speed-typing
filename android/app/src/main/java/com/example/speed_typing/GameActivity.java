@@ -74,6 +74,7 @@ public class GameActivity extends BaseActivity implements IObserver {
         // Récupérer le mot
         Word word = partie.getLastWord();
 
+        // word.getText().length() * constant;
         // Définir un x aléatoire
         Random r = new Random();
         int windowsWidth = getWindowManager().getDefaultDisplay().getWidth();
@@ -151,7 +152,7 @@ public class GameActivity extends BaseActivity implements IObserver {
         for(Vector<Integer> pos : partie.getWordsPositions()) {
             Word word = partie.getWords().get(i);
 
-            insertWordView(word, pos.get(0), pos.get(1));
+            insertWordView(word, pos.get(0), pos.get(1)-DIFICULTY);
 
             i++;
         }
@@ -166,7 +167,6 @@ public class GameActivity extends BaseActivity implements IObserver {
         TextView wordView = new TextView(this);
         wordView.setText(word.getText());
         wordView.setTextColor(getResources().getColor(R.color.colorWhite));
-
 
 
         // La positionner dans le linearLayout wordsView
