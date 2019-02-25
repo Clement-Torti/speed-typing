@@ -18,6 +18,7 @@ import com.example.speed_typing.model.Observer.IObserver;
 import com.example.speed_typing.model.Word;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,7 +146,9 @@ public class GameActivity extends BaseActivity implements IObserver {
     private void updateUI() {
         // Temps
         tempsView.setText(getResources().getString(R.string.time) + ": " + partie.getChrono());
-        nbCaracteresView.setText(getResources().getString(R.string.nbCaracterePerSec) + ": " + partie.nbCaracterePerSec());
+        DecimalFormat format = new DecimalFormat();
+        format.setMaximumFractionDigits(2);
+        nbCaracteresView.setText(getResources().getString(R.string.nbCaracterePerSec) + ": " + format.format(partie.nbCaracterePerSec()));
         nbMotsEcritsView.setText(getResources().getString(R.string.nbWordWrite) + ": " + partie.getNbWordWrite());
         nbMotsRatesView.setText(getResources().getString(R.string.nbWordMissed) + ": " + partie.getNbWordFailed());
         nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());

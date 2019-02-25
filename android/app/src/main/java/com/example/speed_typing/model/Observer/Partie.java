@@ -128,7 +128,10 @@ public class Partie extends Subject implements Serializable, IObserver{
     public void chronoUpdate() {
         chrono++;
 
-        addNewWord();
+        if(chrono % 2 == 0) {
+            addNewWord();
+        }
+
     }
 
     /*
