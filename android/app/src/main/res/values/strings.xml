@@ -8,6 +8,11 @@
     <string name="scores_btn">Scores</string>
     <string name="return_btn">Return</string>
     <string name="home_btn">Home</string>
+    <string name="time">Time</string>
+    <string name="nbCaracterePerSec">char/Sec</string>
+    <string name="nbWordWrite">words written</string>
+    <string name="nbWordMissed">words missed</string>
+    <string name="nbLife">Life</string>
     
     <string-array name="wordsFamily">
         <item>Français</item>

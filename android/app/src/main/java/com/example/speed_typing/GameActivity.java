@@ -1,9 +1,13 @@
 package com.example.speed_typing;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -22,11 +26,14 @@ import java.util.Random;
 import java.util.Vector;
 
 public class GameActivity extends BaseActivity implements IObserver {
-    private static int DIFICULTY = 75;
+    private static int DIFICULTY = 50;
     private TextView tempsView;
     private TextView nbCaracteresView;
     private TextView nbMotsEcritsView;
+    private TextView nbMotsRatesView;
+    private TextView nbLifeView;
     private Button pauseBtn;
+    private EditText editText;
     private List<TextView> wordViewList = new ArrayList<>();
     private GameTimer gameTimer;
 
@@ -53,6 +60,12 @@ public class GameActivity extends BaseActivity implements IObserver {
         tempsView = findViewById(R.id.temps);
         nbCaracteresView = findViewById(R.id.nbCaracteres);
         nbMotsEcritsView = findViewById(R.id.nbMotEcrits);
+        nbMotsRatesView = findViewById(R.id.nbMotsRates);
+        nbLifeView = findViewById(R.id.nbLife);
+
+        // Setup editText
+        configureEditText();
+
 
         // Remise en place des wordViews si on revient de PauseActivity
         configureWordView();
@@ -64,6 +77,7 @@ public class GameActivity extends BaseActivity implements IObserver {
         gameTimer.start();
 
     }
+
 
     /*
      * Appelée lorsque la partie ajout un mot
@@ -85,6 +99,7 @@ public class GameActivity extends BaseActivity implements IObserver {
 
 
     }
+
 
     @Override
     public void chronoUpdate() {
@@ -129,7 +144,12 @@ public class GameActivity extends BaseActivity implements IObserver {
      */
     private void updateUI() {
         // Temps
-        tempsView.setText("Temps: " + partie.getChrono());
+        tempsView.setText(getResources().getString(R.string.time) + ": " + partie.getChrono());
+        nbCaracteresView.setText(getResources().getString(R.string.nbCaracterePerSec) + ": " + partie.nbCaracterePerSec());
+        nbMotsEcritsView.setText(getResources().getString(R.string.nbWordWrite) + ": " + partie.getNbWordWrite());
+        nbMotsRatesView.setText(getResources().getString(R.string.nbWordMissed) + ": " + partie.getNbWordFailed());
+        nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());
+
 
         // Fait descendre la vue plus ou mpins vite en fonction de la difficulté
         for(TextView t : wordViewList) {
@@ -157,6 +177,65 @@ public class GameActivity extends BaseActivity implements IObserver {
             i++;
         }
     }
+
+    /*
+    * Récupérer l'editText de la vue et lui ajouter les bons listeners
+     */
+    private void configureEditText() {
+        editText = findViewById(R.id.editText);
+
+        // Lorsque l'utilisateur écrit une lettre
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Informer la partie qu'un caractère vient d'être écrit
+                partie.caractereWritten();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        // Lorsque l'utilisateur clique sur la touche entrée
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = editText.getText().toString().replace(" ", "");
+                Word wordWritten = new Word(text);
+
+                // On vérifie si ce mot existe
+                if(partie.wordWritten(wordWritten)) {
+                    deleteViewWithText(text);
+                }
+
+                // On efface le texte de l'editText
+                editText.setText("");
+            }
+        });
+    }
+
+    /*
+    * Cherche le wordView avec ce texte et le supprime de la vue
+     */
+    private void deleteViewWithText(String text) {
+        for(TextView t : wordViewList) {
+            String tText = t.getText().toString().replace(" ", "");
+            if(tText.equals(text)) {
+                // Supprime la wordView de son parent
+                ((ViewGroup)t.getParent()).removeView(t);
+                wordViewList.remove(t);
+                // On ne supprime qu'une wordView avec comme contenu text
+                return;
+            }
+        }
+    }
+
 
     /*
      * Permet l'ajout d'un wordView avec un certain mot et une certaine position

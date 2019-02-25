@@ -50,7 +50,15 @@ public class Partie extends Subject implements Serializable, IObserver{
      * Appelez lorsque qu'un mot de displayedWord vient d'être écrit
      */
     public boolean wordWritten(Word word) {
-        return displayedWord.remove(word);
+        boolean bool =  displayedWord.remove(word);
+
+        if(bool) {
+            nbWordWrite++;
+        } else {
+            nbWordFailed++;
+        }
+
+        return bool;
     }
 
     /*
@@ -59,7 +67,7 @@ public class Partie extends Subject implements Serializable, IObserver{
     public boolean wordMissed(Word word) {
         boolean res = displayedWord.remove(word);
         nbLife--;
-
+        // Notifier
         return res;
     }
 
@@ -103,9 +111,13 @@ public class Partie extends Subject implements Serializable, IObserver{
         return displayedWord.get(index);
     }
 
-    public int getChrono() {
-        return chrono;
-    }
+    public int getChrono() { return chrono; }
+
+    public int getNbWordWrite() { return nbWordWrite; }
+
+    public int getNbWordFailed() { return nbWordFailed; }
+
+    public int getNbLife() { return nbLife; }
 
     @Override
     public void update() {
