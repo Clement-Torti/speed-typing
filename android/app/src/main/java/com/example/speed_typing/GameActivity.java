@@ -1,14 +1,17 @@
 package com.example.speed_typing;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -30,7 +33,7 @@ import java.util.Vector;
 public class GameActivity extends BaseActivity implements IObserver {
     private static int CHAR_SIZE = 40;
     private static int FONT_SIZE = 20;
-    private static int DIFICULTY = 50;
+    private float DIFICULTY = 18;
     private static double SCREEN_BOTTOM;
     private TextView tempsView;
     private TextView nbCaracteresView;
@@ -64,10 +67,19 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // Setup textView
         tempsView = findViewById(R.id.temps);
+        tempsView.setTypeface(tempsView.getTypeface(), Typeface.BOLD);
+
         nbCaracteresView = findViewById(R.id.nbCaracteres);
+        nbCaracteresView.setTypeface(nbCaracteresView.getTypeface(), Typeface.BOLD);
+
         nbMotsEcritsView = findViewById(R.id.nbMotEcrits);
+        nbMotsEcritsView.setTypeface(nbMotsEcritsView.getTypeface(), Typeface.BOLD);
+
         nbMotsRatesView = findViewById(R.id.nbMotsRates);
+        nbMotsRatesView.setTypeface(nbMotsRatesView.getTypeface(), Typeface.BOLD);
+
         nbLifeView = findViewById(R.id.nbLife);
+        nbLifeView.setTypeface(nbLifeView.getTypeface(), Typeface.BOLD);
 
         // Setup editText
         configureEditText();
@@ -84,6 +96,10 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // Definit le bas de l'écran
         SCREEN_BOTTOM = getWindowManager().getDefaultDisplay().getHeight() * 0.4;
+
+        // Ouvre le clavier
+        showKeyboard();
+
 
     }
 
@@ -111,8 +127,13 @@ public class GameActivity extends BaseActivity implements IObserver {
 
     @Override
     public void chronoUpdate() {
+        // Increment la difficultee progressivement
+        DIFICULTY += 0.5;
+
+        // Met à jour la vue
         updateUI();
     }
+
 
 
     /*
@@ -120,7 +141,8 @@ public class GameActivity extends BaseActivity implements IObserver {
      */
     @Override
     protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
-
+        // Ferme le clavier
+        closeKeyboard();
 
         // Sauvegarde des positions des éléments
         List<Vector<Integer>> wordsPos = new ArrayList<>();
@@ -217,7 +239,7 @@ public class GameActivity extends BaseActivity implements IObserver {
         for(Vector<Integer> pos : partie.getWordsPositions()) {
             Word word = partie.getWords().get(i);
 
-            insertWordView(word, pos.get(0), pos.get(1)-DIFICULTY);
+            insertWordView(word, pos.get(0), pos.get(1)-(int)DIFICULTY);
 
             i++;
         }
@@ -312,6 +334,9 @@ public class GameActivity extends BaseActivity implements IObserver {
     * Appelez en fin de partie
      */
     private void endGame() {
+        // Ferme le clavier
+        closeKeyboard();
+
         // On se desabonne à la partie
         partie.dettach(this);
         gameTimer.dettach(this);
@@ -324,6 +349,23 @@ public class GameActivity extends BaseActivity implements IObserver {
     }
 
 
+    /*
+    * Ouvre le clavier dès le lancement de l'activité
+     */
+    public void showKeyboard() {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    /*
+    * Ferme le clavier à la fermture de l'activité
+     */
+    public void closeKeyboard() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
 
 
 

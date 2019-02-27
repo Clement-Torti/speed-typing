@@ -28,6 +28,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:textAlignment="center"
+                android:textFontWeight="700"
                 />
 
             <TextView
@@ -92,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="@color/colorWhite"
+
         >
 
         <EditText
@@ -100,6 +101,8 @@
             android:textAlignment="center"
             android:lines="1"
             android:inputType="text"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorWhite"
             />
 
     </TableRow>
