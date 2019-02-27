@@ -1,5 +1,6 @@
 package com.example.speed_typing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,9 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.speed_typing.model.Observer.GameTimer;
@@ -27,6 +26,7 @@ import java.util.Random;
 import java.util.Vector;
 
 public class GameActivity extends BaseActivity implements IObserver {
+    private static int CHAR_SIZE = 20;
     private static int DIFICULTY = 50;
     private TextView tempsView;
     private TextView nbCaracteresView;
@@ -37,6 +37,7 @@ public class GameActivity extends BaseActivity implements IObserver {
     private EditText editText;
     private List<TextView> wordViewList = new ArrayList<>();
     private GameTimer gameTimer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +90,10 @@ public class GameActivity extends BaseActivity implements IObserver {
         // Récupérer le mot
         Word word = partie.getLastWord();
 
-        // word.getText().length() * constant;
         // Définir un x aléatoire
         Random r = new Random();
         int windowsWidth = getWindowManager().getDefaultDisplay().getWidth();
-        int x = r.nextInt(windowsWidth);
+        int x = r.nextInt(windowsWidth - (word.getText().length() * CHAR_SIZE));
 
         // Inserer la wordView dans notre vue
         insertWordView(word, x, 0);
@@ -112,7 +112,7 @@ public class GameActivity extends BaseActivity implements IObserver {
      * Travail à fournir en plus lorsque le jeu est mis en pause
      */
     @Override
-    protected void navigationButtonAction(Class<?> cls, Map<String, Serializable> args) {
+    protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
 
 
         // Sauvegarde des positions des éléments
@@ -134,7 +134,7 @@ public class GameActivity extends BaseActivity implements IObserver {
         // Arret du timer
         gameTimer.pause();
 
-        super.navigationButtonAction(cls, args);
+        super.changeActivity(cls, args);
     }
 
 
@@ -144,6 +144,16 @@ public class GameActivity extends BaseActivity implements IObserver {
      * Met à jour la vue
      */
     private void updateUI() {
+        // On vérifie si c'est la fin de la partie
+        if(partie.isEnded()) {
+            endGame();
+            return;
+        }
+
+
+        // wordView a supprimer
+        List<TextView> deletedWordView = new ArrayList<>();
+
         // Temps
         tempsView.setText(getResources().getString(R.string.time) + ": " + partie.getChrono());
         DecimalFormat format = new DecimalFormat();
@@ -159,12 +169,34 @@ public class GameActivity extends BaseActivity implements IObserver {
             float newY = t.getY() + DIFICULTY;
             t.setY(newY);
             // Check si le mot est descendu en bas
+            if(isAtBottom(newY)) {
+                String texte = t.getText().toString();
+                Word word = new Word(texte);
+                partie.wordMissed(word);
+                deletedWordView.add(t);
 
+            }
             // Changer la couleur du texte en fonction de la hauteur
 
         }
 
+
+        // Supprime les textView arrivées en bas
+        for(TextView textView : deletedWordView) {
+            ((ViewGroup)textView.getParent()).removeView(textView);
+            wordViewList.remove(textView);
+        }
+
+
     }
+
+    /*
+    * @boolean True si la wordView est en dessous du seuil
+     */
+    private boolean isAtBottom(float x) {
+        return x >= getWindowManager().getDefaultDisplay().getHeight() * 0.4;
+    }
+
 
     /*
      * Remettre en place les wordView en cause de restart de la partie
@@ -263,6 +295,25 @@ public class GameActivity extends BaseActivity implements IObserver {
         wordViewList.add(wordView);
 
     }
+
+
+    /*
+    * Appelez en fin de partie
+     */
+    private void endGame() {
+        // On se desabonne à la partie
+        partie.dettach(this);
+        gameTimer.dettach(this);
+        gameTimer.dettach(partie);
+
+        // Arret du timer
+        gameTimer.pause();
+
+        changeActivity(EndGameActivity.class, new HashMap<String, Serializable>());
+    }
+
+
+
 
 
 }

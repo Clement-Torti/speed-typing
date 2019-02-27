@@ -126,8 +126,6 @@
             android:id="@+id/wordsView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:backgroundTint="@color/colorWhite"
             />
     </TableRow>
 

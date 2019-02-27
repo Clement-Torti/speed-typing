@@ -18,7 +18,7 @@ import java.util.Vector;
  */
 public class Partie extends Subject implements Serializable, IObserver{
     public static final long serialversionUID = 129348938L;
-    public static final int NB_LIFE = 10;
+    public static final int NB_LIFE = 5;
     private int chrono;
     private int nbWordWrite;
     private int nbWordFailed;
@@ -101,7 +101,7 @@ public class Partie extends Subject implements Serializable, IObserver{
     /*
      * @return retourne true si la partie est fini
      */
-    public boolean isEnded() { return NB_LIFE == 0; }
+    public boolean isEnded() { return nbLife <= 0; }
 
     /*
      * @return retourne le dernier mot de la liste displayedWord
