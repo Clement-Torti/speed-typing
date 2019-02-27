@@ -1,6 +1,8 @@
 package com.example.speed_typing;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,8 +28,10 @@ import java.util.Random;
 import java.util.Vector;
 
 public class GameActivity extends BaseActivity implements IObserver {
-    private static int CHAR_SIZE = 20;
+    private static int CHAR_SIZE = 40;
+    private static int FONT_SIZE = 20;
     private static int DIFICULTY = 50;
+    private static double SCREEN_BOTTOM;
     private TextView tempsView;
     private TextView nbCaracteresView;
     private TextView nbMotsEcritsView;
@@ -77,6 +81,9 @@ public class GameActivity extends BaseActivity implements IObserver {
         gameTimer.attach(this);
         gameTimer.attach(partie);
         gameTimer.start();
+
+        // Definit le bas de l'écran
+        SCREEN_BOTTOM = getWindowManager().getDefaultDisplay().getHeight() * 0.4;
 
     }
 
@@ -177,6 +184,9 @@ public class GameActivity extends BaseActivity implements IObserver {
 
             }
             // Changer la couleur du texte en fonction de la hauteur
+            int redValue = (int) ((255 * newY) / SCREEN_BOTTOM);
+            t.setTextColor(Color.argb(255, redValue, 255 - redValue, 0));
+
 
         }
 
@@ -187,14 +197,14 @@ public class GameActivity extends BaseActivity implements IObserver {
             wordViewList.remove(textView);
         }
 
-
     }
+
 
     /*
     * @boolean True si la wordView est en dessous du seuil
      */
     private boolean isAtBottom(float x) {
-        return x >= getWindowManager().getDefaultDisplay().getHeight() * 0.4;
+        return x >= SCREEN_BOTTOM;
     }
 
 
@@ -279,8 +289,9 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // Creer la vue du mots
         TextView wordView = new TextView(this);
+        wordView.setTextSize(FONT_SIZE);
+        wordView.setTextColor(Color.argb(255, 0, 255, 0));
         wordView.setText(word.getText());
-        wordView.setTextColor(getResources().getColor(R.color.colorWhite));
 
 
         // La positionner dans le linearLayout wordsView
