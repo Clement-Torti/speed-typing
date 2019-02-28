@@ -1,5 +1,6 @@
 package com.example.speed_typing;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.speed_typing.model.ScoreAdapter;
 import com.example.speed_typing.model.Scores;
 import com.example.speed_typing.model.Util.ScoreReader;
 import com.example.speed_typing.model.Util.ScoreWriter;
@@ -56,47 +58,12 @@ public class ScoreActivity extends BaseActivity {
         scores.add(new Scores("jonathan", 3, 2, 1, 0));
         scores.add(new Scores("florent", 1, 2, 4, 8));
 
-        scoresListView.setAdapter(new ArrayAdapter<Scores>(this, R.layout.score_list_view_layout));
+        ScoreAdapter adapter = new ScoreAdapter(this, scores, getLayoutInflater());
+        scoresListView.setAdapter(adapter);
     }
 
 
 
-
-
-
-
-    public class ScoreAdapter extends BaseAdapter {
-
-        List<Scores> scores;
-
-        public ScoreAdapter(List<Scores> scores) {
-            this.scores = scores;
-        }
-
-        @Override
-        public int getCount() {
-            return scores.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.score_list_view_layout, null);
-            TextView nameView = (TextView) convertView.findViewById(R.id.nameView);
-
-            nameView.setText(scores.get(position).getName());
-            return null;
-        }
-    }
 
 
 }

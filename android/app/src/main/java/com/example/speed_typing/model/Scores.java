@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.Date;
 
 public class Scores {
+    public static int NB_SCORES;
     private String name;
     private int time;
     private int nbWordWrite;
@@ -18,7 +19,10 @@ public class Scores {
     private String photoPath;
 
     public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere, String photoPath) {
-        Log.d("jonathan","contructeur scores");
+
+        // Incremente le nombre de score pour générer un nom de fichier
+        NB_SCORES++;
+
         this.name = name;
         this.time = time;
         this.nbWordWrite = nbWordWrite;
@@ -58,4 +62,6 @@ public class Scores {
     }
 
     public String getName() { return name; }
+
+    public int getTime() { return time; }
 }

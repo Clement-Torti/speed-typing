@@ -6,11 +6,17 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.speed_typing.model.Scores;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -26,6 +32,7 @@ public class EndGameActivity extends BaseActivity {
     private TextView precisionView;
     private TextView nbCaractereView;
     private Button homeBtn;
+    private Bitmap image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +86,9 @@ public class EndGameActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        System.out.println(requestCode + "");
-        System.out.println(resultCode + "");
-
-            Bitmap image = (Bitmap) data.getExtras().get("data");
-            userPhotoView.setImageBitmap(image);
-            homeBtn.setEnabled(true);
+        image = (Bitmap) data.getExtras().get("data");
+        userPhotoView.setImageBitmap(image);
+        homeBtn.setEnabled(true);
 
     }
 
@@ -93,6 +97,24 @@ public class EndGameActivity extends BaseActivity {
         super.changeActivity(cls, args);
 
         // Sauvegarder la partie
-        //saveGame()
+        saveGame();
+    }
+
+    /*
+    * sauvegarde la partie dans un fichier
+     */
+    private void saveGame() {
+        String fileName = "save/" + Scores.NB_SCORES + ".txt";
+        File file = new File(fileName);
+
+        try {
+            FileOutputStream outputStream= new FileOutputStream(fileName);
+
+            image.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+
+            outputStream.close();
+        } catch(IOException e) {
+            Log.d("IOException", "saveGame in EndGameActivity");
+        }
     }
 }
