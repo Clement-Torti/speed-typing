@@ -10,10 +10,16 @@
     <string name="return_btn">Retour</string>
     <string name="home_btn">Accueil</string>
     <string name="time">Temps</string>
+    <string name="timeUnit">Sec</string>
+    <string name="precision">%</string>
     <string name="nbCaracterePerSec">caractere/Sec</string>
     <string name="nbWordWrite">mots écrits</string>
     <string name="nbWordMissed">mots ratés</string>
     <string name="nbLife">Vie</string>
+    <string name="takeShot">Prendre une photo</string>
+
+    <string name="endGameTitle">Fin de partie</string>
+    <string name="endGameDesc">Vos résultats</string>
 
     <string-array name="wordsFamily">
         <item>Français</item>

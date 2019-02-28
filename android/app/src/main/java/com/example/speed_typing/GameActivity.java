@@ -51,11 +51,6 @@ public class GameActivity extends BaseActivity implements IObserver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        // Cache la bar du haut
-        this.getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.getSupportActionBar().hide();
 
         // S'abonner à la partie
         partie.attach(this);
