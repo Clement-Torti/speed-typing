@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Map;
 
 public class EndGameActivity extends BaseActivity {
 
@@ -85,5 +86,13 @@ public class EndGameActivity extends BaseActivity {
             userPhotoView.setImageBitmap(image);
             homeBtn.setEnabled(true);
 
+    }
+
+    @Override
+    protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
+        super.changeActivity(cls, args);
+
+        // Sauvegarder la partie
+        //saveGame()
     }
 }

@@ -19,7 +19,10 @@
     <string name="takeShot">Prendre une photo</string>
 
     <string name="endGameTitle">Fin de partie</string>
+    <string name="homeTitle">Bienvenue à speed-typing!</string>
     <string name="endGameDesc">Vos résultats</string>
+    <string name="homeDesc">Commencez une nouvelle partie</string>
+    <string name="chooseCategory">Choisir la catégorie</string>
 
     <string-array name="wordsFamily">
         <item>Français</item>

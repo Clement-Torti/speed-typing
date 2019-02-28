@@ -56,4 +56,6 @@ public class Scores {
     public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
     }
+
+    public String getName() { return name; }
 }
