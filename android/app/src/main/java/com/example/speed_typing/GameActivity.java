@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.speed_typing.model.Observer.GameTimer;
 import com.example.speed_typing.model.Observer.IObserver;
+import com.example.speed_typing.model.Util.SoundBox;
 import com.example.speed_typing.model.Word;
 
 import java.io.Serializable;
@@ -85,17 +86,18 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // Création du timer
         gameTimer = new GameTimer(this);
-        gameTimer.attach(this);
         gameTimer.attach(partie);
+        gameTimer.attach(this);
         gameTimer.start();
 
         // Definit le bas de l'écran
-        SCREEN_BOTTOM = getWindowManager().getDefaultDisplay().getHeight() * 0.4;
+        SCREEN_BOTTOM = getWindowManager().getDefaultDisplay().getHeight() * 0.3;
 
         // Ouvre le clavier
         showKeyboard();
 
-
+        // Démarre la musique
+        SoundBox.playBackgroundSound(this);
     }
 
 
@@ -138,6 +140,9 @@ public class GameActivity extends BaseActivity implements IObserver {
     protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
         // Ferme le clavier
         closeKeyboard();
+
+        // Arrete le son
+        SoundBox.stopMusic();
 
         // Sauvegarde des positions des éléments
         List<Vector<Integer>> wordsPos = new ArrayList<>();
@@ -194,6 +199,7 @@ public class GameActivity extends BaseActivity implements IObserver {
             t.setY(newY);
             // Check si le mot est descendu en bas
             if(isAtBottom(newY)) {
+                SoundBox.playFailSound(this);
                 String texte = t.getText().toString();
                 Word word = new Word(texte);
                 partie.wordMissed(word);
@@ -274,6 +280,9 @@ public class GameActivity extends BaseActivity implements IObserver {
                 // On vérifie si ce mot existe
                 if(partie.wordWritten(wordWritten)) {
                     deleteViewWithText(text);
+                    SoundBox.playSuccessSound(getApplicationContext());
+                } else {
+                    SoundBox.playFailSound(getApplicationContext());
                 }
 
                 // On efface le texte de l'editText
@@ -331,6 +340,9 @@ public class GameActivity extends BaseActivity implements IObserver {
     private void endGame() {
         // Ferme le clavier
         closeKeyboard();
+
+        // Arrete la musique
+        SoundBox.stopMusic();
 
         // On se desabonne à la partie
         partie.dettach(this);
