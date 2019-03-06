@@ -9,6 +9,12 @@
     android:gravity="center"
     android:background="@color/colorSpace">
 
+
+    <ListView
+        android:id="@+id/scoresListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
     <Button
         android:id="@+id/returnBtn"
         android:layout_width="wrap_content"
@@ -21,4 +27,9 @@
         android:layout_marginBottom="8dp"
         android:text="@string/return_btn"
          />
+
+
+
+
+
 </LinearLayout>

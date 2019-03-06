@@ -23,4 +23,10 @@ public class Subject {
         }
     }
 
+    protected void notifierChrono() {
+        for(IObserver obs: observers) {
+            obs.chronoUpdate();
+        }
+    }
+
 }

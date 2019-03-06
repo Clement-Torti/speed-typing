@@ -6,59 +6,119 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity"
     android:stretchColumns="*"
-    android:background="@color/colorSpace">
+    android:background="@color/colorSpace"
+    >
 
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
         android:background="@color/colorWhite"
         >
 
-        <TextView
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="NBMotsEcrit"
-            android:lines="2"
-            />
-        <TextView
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="NBCaract/sec"
-            android:lines="2"
-            />
+        <GridLayout
+            android:columnCount="3"
+            android:rowCount="2">
 
-        <TextView
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Temps:"
-            />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/nbMotEcrits"
+                android:lines="1"
+                android:layout_marginBottom="8dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:textAlignment="center"
+                android:textFontWeight="700"
+                />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/nbMotsRates"
+                android:lines="1"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:textAlignment="center"
+                />
 
 
-        <Button
-          android:id="@+id/pauseBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/pause_btn"
-         />
+            <Button
+                android:id="@+id/pauseBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/pause_btn"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                />
+
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/nbCaracteres"
+                android:lines="1"
+                android:layout_marginBottom="8dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/nbLife"
+                android:lines="1"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/temps"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:textAlignment="center"
+                />
+
+        </GridLayout>
+
+
 
     </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        >
+
+        <EditText
+            android:id="@+id/editText"
+            android:textAlignment="center"
+            android:lines="1"
+            android:inputType="text"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorWhite"
+            />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
+
+        <RelativeLayout
+            android:id="@+id/wordsView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </TableRow>
+
+
 </TableLayout>

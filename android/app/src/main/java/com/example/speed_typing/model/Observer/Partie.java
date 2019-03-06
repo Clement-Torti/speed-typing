@@ -10,14 +10,15 @@ import com.example.speed_typing.model.WordType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 
 /*
-* Partie doit être serializable pour être passée d'une vue à l'autre
+ * Partie doit être serializable pour être passée d'une vue à l'autre
  */
-public class Partie extends Subject implements Serializable {
+public class Partie extends Subject implements Serializable, IObserver{
     public static final long serialversionUID = 129348938L;
-    public static final int NB_LIFE = 10;
+    public static final int NB_LIFE = 5;
     private int chrono;
     private int nbWordWrite;
     private int nbWordFailed;
@@ -26,6 +27,7 @@ public class Partie extends Subject implements Serializable {
 
     private WordDatabase wordDb;
     private List<Word> displayedWord = new ArrayList<>();
+    private List<Vector<Integer>> wordsPositions = new ArrayList<>();
 
     public Partie(Context context, WordType wordType) {
         chrono = 0;
@@ -38,17 +40,25 @@ public class Partie extends Subject implements Serializable {
     }
 
     /*
-    * Augmente le temps de 1 sec
+     * Augmente le temps de 1 sec
      */
     public void incrementChrono() {
         chrono++;
     }
 
     /*
-    * Appelez lorsque qu'un mot de displayedWord vient d'être écrit
+     * Appelez lorsque qu'un mot de displayedWord vient d'être écrit
      */
     public boolean wordWritten(Word word) {
-        return displayedWord.remove(word);
+        boolean bool =  displayedWord.remove(word);
+
+        if(bool) {
+            nbWordWrite++;
+        } else {
+            nbWordFailed++;
+        }
+
+        return bool;
     }
 
     /*
@@ -57,30 +67,31 @@ public class Partie extends Subject implements Serializable {
     public boolean wordMissed(Word word) {
         boolean res = displayedWord.remove(word);
         nbLife--;
-
+        // Notifier
         return res;
     }
 
     /*
-    * Lorsqu'un caractere est écrit
+     * Lorsqu'un caractere est écrit
      */
     public void caractereWritten() {
         nbCaractere++;
     }
 
     /*
-    * Nombre de caratere écrit par seconde
+     * Nombre de caratere écrit par seconde
      */
     public float nbCaracterePerSec() {
         return ((float) nbCaractere)/ chrono;
     }
 
     /*
-    * Ajout d'une mot dans displayedWord, notify les observateurs du changement
+     * Ajout d'une mot dans displayedWord, notify les observateurs du changement
      */
     public void addNewWord() {
         Word word = wordDb.getRandomWord();
         displayedWord.add(word);
+
         notifier();
     }
 
@@ -88,16 +99,57 @@ public class Partie extends Subject implements Serializable {
     public void start() {}
 
     /*
-    * @return retourne true si la partie est fini
+     * @return retourne true si la partie est fini
      */
-    public boolean isEnded() { return NB_LIFE == 0; }
+    public boolean isEnded() { return nbLife <= 0; }
 
     /*
-    * @return retourne le dernier mot de la liste displayedWord
+     * @return retourne le dernier mot de la liste displayedWord
      */
     public Word getLastWord() {
         int index  = displayedWord.size() - 1;
         return displayedWord.get(index);
     }
 
+    public int getChrono() { return chrono; }
+
+    public int getNbWordWrite() { return nbWordWrite; }
+
+    public int getNbWordFailed() { return nbWordFailed; }
+
+    public int getNbLife() { return nbLife; }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void chronoUpdate() {
+        chrono++;
+
+        if(chrono % 2 == 0) {
+            addNewWord();
+        }
+
+    }
+
+    /*
+     * Lorsque le jeu est mis en pause. GameActivity transmet les données de la vue à Partie pour pouvoir ré-afficher les mots au bon endroit
+     */
+    public void setWordsPositions(List<Vector<Integer>> positions) {
+        wordsPositions = positions;
+    }
+
+    /*
+     * Lorsque le GameActivity se relance, attribuer la bonne position aux mots
+     */
+    public List<Vector<Integer>> getWordsPositions() {
+        return wordsPositions;
+    }
+
+
+    public List<Word> getWords() { return displayedWord; }
+
 }
+

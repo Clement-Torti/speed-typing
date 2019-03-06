@@ -62,7 +62,7 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String texte = parent.getItemAtPosition(position).toString();
-        System.out.println(texte);
+
         wordType = WordFactory.getWordType(texte);
 
         // Creation de la partie

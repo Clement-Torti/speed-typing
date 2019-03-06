@@ -6,44 +6,86 @@
     android:layout_height="match_parent"
     tools:context=".AccueilActivity"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/colorSpace"
+    android:background="@drawable/bgapp"
     >
 
-    <Button
-        android:id="@+id/startBtn"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/start_btn"
+        android:layout_margin="10dp">
+        <TextView
+            android:id="@+id/endGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homeTitle"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/endGame"
+            android:text="@string/homeDesc"
+            android:textColor="@color/colorWhite"/>
 
+        <ImageView
+            android:id="@+id/clement"
+            android:layout_alignParentRight="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/clement"/>
+
+        <ImageView
+            android:layout_toLeftOf="@id/clement"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/jonathan"/>
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_marginTop="90dp"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/chooseCategory"
+        android:textAlignment="center"
+        android:background="@color/colorWhite"
+        android:padding="10dp"
         />
 
     <Spinner
+        android:layout_gravity="center"
         android:id="@+id/wordsSpinner"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:textAlignment="center"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:padding="5dp"
-        android:layout_marginTop="8dp"
         />
 
-    <Button
-        android:id="@+id/scoresBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/scores_btn"
-        />
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:id="@+id/startBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="@string/start_btn"
+            android:background="@color/colorWhite"
+            />
+
+            <Button
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                android:id="@+id/scoresBtn"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="@string/scores_btn"
+                android:background="@color/colorWhite"
+                />
+
+
 
 </LinearLayout>

@@ -6,7 +6,7 @@ public class Word implements Serializable  {
     public static final long serialversionUID = 129348940L;
     private String text;
 
-    protected Word (String txt){
+    public Word (String txt){
         text = txt;
     }
 

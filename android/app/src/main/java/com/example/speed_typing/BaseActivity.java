@@ -1,7 +1,6 @@
 package com.example.speed_typing;
 
 import android.content.Intent;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,15 +32,24 @@ public class BaseActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent navIntent = new Intent(getApplicationContext(), cls);
-                for(String key: args.keySet()) {
-                    navIntent.putExtra(key, args.get(key));
-                }
-                // Le passage de la partie se fait systématiquement
-                navIntent.putExtra("game", partie);
-                startActivity(navIntent);
+                changeActivity(cls, args);
             }
         });
+
     }
+
+    /*
+     * Action a exécuter lorsque l'on navigue d'une page à l'autre
+     */
+    protected void changeActivity(final Class<?> cls, final Map<String, Serializable> args) {
+        Intent navIntent = new Intent(getApplicationContext(), cls);
+        for(String key: args.keySet()) {
+            navIntent.putExtra(key, args.get(key));
+        }
+        // Le passage de la partie se fait systématiquement
+        navIntent.putExtra("game", partie);
+        startActivity(navIntent);
+    }
+
+
 }

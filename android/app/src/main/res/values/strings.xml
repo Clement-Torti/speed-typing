@@ -8,6 +8,19 @@
     <string name="scores_btn">Scores</string>
     <string name="return_btn">Return</string>
     <string name="home_btn">Home</string>
+    <string name="time">Time</string>
+    <string name="timeUnit">Sec</string>
+    <string name="precision">%</string>
+    <string name="nbCaracterePerSec">char/Sec</string>
+    <string name="nbWordWrite">words written</string>
+    <string name="nbWordMissed">words missed</string>
+    <string name="nbLife">Life</string>
+    <string name="takeShot">Take shot</string>
+    <string name="endGameTitle">End Game</string>
+    <string name="endGameDesc">Results</string>
+    <string name="homeTitle">Welcome to speed-typing!</string>
+    <string name="homeDesc">Begin a new Game</string>
+    <string name="chooseCategory">Choose category</string>
     
     <string-array name="wordsFamily">
         <item>Français</item>

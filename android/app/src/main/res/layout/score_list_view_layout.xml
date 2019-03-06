@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="250dp"
+    android:background="@color/colorSpace"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/scoreRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:text="1"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="3"
+        android:columnCount="2">
+
+        <TextView
+            android:id="@+id/nameView"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Name"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <TextView
+            android:id="@+id/scoreNbCaractere"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/nbCaracterePerSec"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <TextView
+            android:id="@+id/scoreTime"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/time"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <TextView
+            android:id="@+id/scoreNbWordWritten"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/nbWordWrite"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <TextView
+            android:id="@+id/scoreNbWordFailed"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/nbWordMissed"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+        <TextView
+            android:id="@+id/scorePrecision"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/precision"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            />
+
+    </GridLayout>
+
+    <ImageView
+        android:id="@+id/scorePhotoView"
+        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        />
+
+
+</LinearLayout>

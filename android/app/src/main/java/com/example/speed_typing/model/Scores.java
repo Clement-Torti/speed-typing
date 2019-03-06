@@ -1,11 +1,17 @@
 package com.example.speed_typing.model;
 
+import android.util.Log;
+
+import java.util.Date;
+
 public class Scores {
+    public static int NB_SCORES;
     private String name;
     private int time;
     private int nbWordWrite;
     private int nbWordFailed;
     private int nbCaractere;
+    private Date date;
 
     /*
     * Le chemin d'acces à l'image du joueur
@@ -13,6 +19,10 @@ public class Scores {
     private String photoPath;
 
     public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere, String photoPath) {
+
+        // Incremente le nombre de score pour générer un nom de fichier
+        NB_SCORES++;
+
         this.name = name;
         this.time = time;
         this.nbWordWrite = nbWordWrite;
@@ -35,4 +45,23 @@ public class Scores {
     public float getNbCaracterePerSec() { return (float)nbCaractere/time; }
 
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public String getName() { return name; }
+
+    public int getTime() { return time; }
 }
