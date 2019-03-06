@@ -131,13 +131,7 @@ public class GameActivity extends BaseActivity implements IObserver {
         updateUI();
     }
 
-
-
-    /*
-     * Travail à fournir en plus lorsque le jeu est mis en pause
-     */
-    @Override
-    protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
+    private void quit(){
         // Ferme le clavier
         closeKeyboard();
 
@@ -162,12 +156,23 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // Arret du timer
         gameTimer.pause();
+    }
 
+    /*
+     * Travail à fournir en plus lorsque le jeu est mis en pause
+     */
+    @Override
+    protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
+
+        quit();
         super.changeActivity(cls, args);
     }
 
-
-
+    @Override
+    protected void onPause() {
+        quit();
+        super.onPause();
+    }
 
     /*
      * Met à jour la vue
