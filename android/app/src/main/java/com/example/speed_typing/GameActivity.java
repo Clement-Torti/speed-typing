@@ -52,10 +52,6 @@ public class GameActivity extends BaseActivity implements IObserver {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
-        // S'abonner à la partie
-        partie.attach(this);
-
         // Configuration des boutons
         pauseBtn = findViewById(R.id.pauseBtn);
 
@@ -77,27 +73,8 @@ public class GameActivity extends BaseActivity implements IObserver {
         nbLifeView = findViewById(R.id.nbLife);
         nbLifeView.setTypeface(nbLifeView.getTypeface(), Typeface.BOLD);
 
-        // Setup editText
-        configureEditText();
-
-
-        // Remise en place des wordViews si on revient de PauseActivity
-        configureWordView();
-
-        // Création du timer
-        gameTimer = new GameTimer(this);
-        gameTimer.attach(partie);
-        gameTimer.attach(this);
-        gameTimer.start();
-
         // Definit le bas de l'écran
         SCREEN_BOTTOM = getWindowManager().getDefaultDisplay().getHeight() * 0.3;
-
-        // Ouvre le clavier
-        showKeyboard();
-
-        // Démarre la musique
-        SoundBox.playBackgroundSound(this);
     }
 
 
@@ -129,6 +106,33 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // Met à jour la vue
         updateUI();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // S'abonner à la partie
+        partie.attach(this);
+
+        // Setup editText
+        configureEditText();
+
+
+        // Remise en place des wordViews si on revient de PauseActivity
+        configureWordView();
+
+        // Création du timer
+        gameTimer = new GameTimer(this);
+        gameTimer.attach(partie);
+        gameTimer.attach(this);
+        gameTimer.start();
+
+        // Ouvre le clavier
+        showKeyboard();
+
+        // Démarre la musique
+        SoundBox.playBackgroundSound(this);
     }
 
     private void quit(){
@@ -172,11 +176,6 @@ public class GameActivity extends BaseActivity implements IObserver {
     protected void onPause() {
         quit();
         super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     /*

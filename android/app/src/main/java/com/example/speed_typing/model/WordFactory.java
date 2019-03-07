@@ -8,6 +8,7 @@ public class WordFactory {
         switch(wordType) {
             case Francais: return new WordDatabase("Francais.txt", context);
             case Anglais: return new WordDatabase("Anglais.txt", context);
+            case Autre: return new WordDatabase("Anglais.txt", context);
         }
 
         return new WordDatabase("Francais.txt", context);
