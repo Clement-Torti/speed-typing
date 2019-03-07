@@ -174,6 +174,11 @@ public class GameActivity extends BaseActivity implements IObserver {
         super.onPause();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     /*
      * Met à jour la vue
      */
