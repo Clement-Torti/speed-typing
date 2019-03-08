@@ -18,6 +18,7 @@ import com.example.speed_typing.model.WordFactory;
 import com.example.speed_typing.model.WordType;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

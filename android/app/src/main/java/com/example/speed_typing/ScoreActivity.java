@@ -50,13 +50,17 @@ public class ScoreActivity extends BaseActivity {
         scoresListView = (ListView) findViewById(R.id.scoresListView);
         configureListView();
 
+
+
     }
 
     private void configureListView() {
-        List<Scores> scores = new ArrayList<>();
+        List<Scores> scores = ScoreReader.read("Scores.txt", this);
+
+        /*
         scores.add(new Scores("clement", 1, 2, 3, 4));
         scores.add(new Scores("jonathan", 3, 2, 1, 0));
-        scores.add(new Scores("florent", 1, 2, 4, 8));
+        scores.add(new Scores("florent", 1, 2, 4, 8));*/
 
         ScoreAdapter adapter = new ScoreAdapter(this, scores, getLayoutInflater());
         scoresListView.setAdapter(adapter);

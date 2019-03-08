@@ -2,12 +2,15 @@ package com.example.speed_typing.model.Util;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.example.speed_typing.model.Scores;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,8 +24,9 @@ import java.util.Date;
 public class ScoreReader {
     private static ArrayList<Scores> scoreLignes = new ArrayList<Scores>();
 
-    public static ArrayList<Scores> read(String fileName, Context context){
-        String ligne[];
+    public static ArrayList<Scores> read(Context context){
+        String ligne;
+        String elements[];
 
         int nbWordWrite;
         int nbWordFailed;
@@ -33,51 +37,36 @@ public class ScoreReader {
         int time;
 
         int nbscores;
-        //recuperation de l'asset manager permettant de retrouver les fichiers
-        AssetManager assetManager = context.getAssets();
 
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
 
         try {
 
             //creation buffer
-            InputStream ips = assetManager.open(fileName);
+            FileInputStream ips = new FileInputStream(context.getFilesDir() + "/Scores.txt");
             InputStreamReader ipsr = new InputStreamReader(ips);
             BufferedReader br = new BufferedReader(ipsr);
 
-            /*File fichier = context.getFileStreamPath(fileName);
-            FileReader fr = new FileReader(fichier);
-            BufferedReader br = new BufferedReader(fr);;*/
+            while((ligne = br.readLine()) != null) {
+                elements = ligne.split("_");
 
-            nbscores = Integer.parseInt(br.readLine());
-            Log.d("jonathan","scoreReader");
+                name = elements[0];
 
-            for (int i=0; i < (int)nbscores;i++)  {
-                ligne = br.readLine().split("_");
+                time = Integer.parseInt(elements[1]);
 
-                name = ligne[0];
-                Log.d("jonathan","      nom "+name);
+                nbWordWrite = Integer.parseInt(elements[2]);
 
-                time = Integer.parseInt(ligne[1]);
+                nbWordFailed= Integer.parseInt(elements[3]);
 
-                nbWordWrite = Integer.parseInt(ligne[2]);
+                nbCharactere = Integer.parseInt(elements[4]);
 
-                nbWordFailed= Integer.parseInt(ligne[3]);
+                photoPath = elements[5];
 
-                nbCharactere = Integer.parseInt(ligne[4]);
-
-                /*if (ligne.length == 5){
-                    Log.d("jonathan","ici");
-                    photoPath = ligne[5];
-                    Log.d("jonathan",photoPath);
-                    scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordFailed, nbCharactere, photoPath));
-
-                }
-                else*/
-                scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordFailed, nbCharactere));
+                scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordFailed, nbCharactere, photoPath));
             }
 
             br.close();
+
         } catch (FileNotFoundException e) {
             //FileNotFoundException
             e.printStackTrace();
@@ -90,5 +79,26 @@ public class ScoreReader {
 
         return scoreLignes;
 
+    }
+
+
+    public static Bitmap readImage(String filePath, Context context) {
+        Bitmap img;
+
+        try {
+            File file = new File(context.getFilesDir() + "/" + filePath);
+            InputStream in = new BufferedInputStream(new FileInputStream(file));
+            byte[] buf = new byte[(int) file.length()];
+            int numRead = in.read(buf);
+
+        } catch(FileNotFoundException e) {
+            Log.d("readImage", "fichier " + filePath + " introuvable");
+        } catch(IOException e) {
+            Log.d("readImage", "read buffer fonctionne pas")
+        }
+
+
+
+        return img;
     }
 }

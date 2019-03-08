@@ -23,6 +23,7 @@ public class BaseActivity extends AppCompatActivity {
         if(getIntent().hasExtra("game")) {
             partie = (Partie) getIntent().getExtras().getSerializable("game");
         }
+
     }
 
     /**
