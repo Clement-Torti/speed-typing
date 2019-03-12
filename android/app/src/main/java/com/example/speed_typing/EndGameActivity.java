@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.speed_typing.model.Scores;
+import com.example.speed_typing.model.Util.ScoreReader;
+import com.example.speed_typing.model.Util.ScoreWriter;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,6 +24,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EndGameActivity extends BaseActivity {
@@ -33,6 +37,7 @@ public class EndGameActivity extends BaseActivity {
     private TextView nbCaractereView;
     private Button homeBtn;
     private Bitmap image;
+    private EditText nameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,9 @@ public class EndGameActivity extends BaseActivity {
         precisionView = (TextView) findViewById(R.id.resPrecision);
         nbCaractereView = (TextView) findViewById(R.id.resNbCaracteres);
         updateUI();
+
+        // Donne un nom
+        nameView = (EditText) findViewById(R.id.nameView);
 
     }
 
@@ -104,17 +112,33 @@ public class EndGameActivity extends BaseActivity {
     * sauvegarde la partie dans un fichier
      */
     private void saveGame() {
-        String fileName = "save/" + Scores.NB_SCORES + ".txt";
-        File file = new File(fileName);
+        // On créer le nouveau score
+        String photoPath = ScoreWriter.writeImage(image, getApplicationContext());
+        String name = nameView.getText().toString();
+        int time = partie.getChrono();
+        int nbWordWrite = partie.getNbWordWrite();
+        int nbWordFailed = partie.getNbWordFailed();
+        int nbCaractere = partie.getNbCaractere();
 
-        try {
-            FileOutputStream outputStream= new FileOutputStream(fileName);
+        Scores newScore = new Scores(name, time, nbWordWrite, nbWordFailed, nbCaractere, photoPath);
 
-            image.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        // On récupère la liste des scores
+        List<Scores> scores = ScoreReader.read(getApplicationContext());
 
-            outputStream.close();
-        } catch(IOException e) {
-            Log.d("IOException", "saveGame in EndGameActivity");
-        }
+        // On insere le nouveau score au bon endroit
+        scores = insertScore(newScore, scores);
+
+        // On enregistre ces scores dans le fichier
+        ScoreWriter.write(getApplicationContext(), scores);
+
+    }
+
+    /*
+    * Ajoute le score dans la liste au bon endroit
+     */
+    private List<Scores> insertScore(Scores score, List<Scores> scores) {
+        // Ajoute à la fin pour le moment, à implémenter...
+        scores.add(score);
+        return scores;
     }
 }

@@ -86,6 +86,11 @@ public class Partie extends Subject implements Serializable, IObserver{
     }
 
     /*
+    * Nombre de caracteres total
+     */
+    public int getNbCaractere() { return nbCaractere; }
+
+    /*
      * Ajout d'une mot dans displayedWord, notify les observateurs du changement
      */
     public void addNewWord() {

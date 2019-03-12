@@ -5,23 +5,18 @@ import android.util.Log;
 import java.util.Date;
 
 public class Scores {
-    public static int NB_SCORES;
     private String name;
     private int time;
     private int nbWordWrite;
     private int nbWordFailed;
-    private int nbCaractere;
-    private Date date;
+    private float nbCaractere;
 
     /*
     * Le chemin d'acces à l'image du joueur
      */
     private String photoPath;
 
-    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere, String photoPath) {
-
-        // Incremente le nombre de score pour générer un nom de fichier
-        NB_SCORES++;
+    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, float nbCaractere, String photoPath) {
 
         this.name = name;
         this.time = time;
@@ -31,7 +26,7 @@ public class Scores {
         this.photoPath = photoPath;
     }
 
-    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, int nbCaractere) {
+    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, float nbCaractere) {
         this(name, time, nbWordWrite, nbWordFailed, nbCaractere, "");
     }
 
@@ -45,14 +40,6 @@ public class Scores {
     public float getNbCaracterePerSec() { return (float)nbCaractere/time; }
 
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getPhotoPath() {
         return photoPath;
     }
@@ -64,4 +51,9 @@ public class Scores {
     public String getName() { return name; }
 
     public int getTime() { return time; }
+
+    @Override public String toString() {
+        return name+"_"+time+"_"+nbWordWrite+"_"+nbWordFailed+"_"+nbCaractere+"_"+photoPath;
+    }
+
 }

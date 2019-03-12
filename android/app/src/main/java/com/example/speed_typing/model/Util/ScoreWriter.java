@@ -12,29 +12,27 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Random;
 
 public class ScoreWriter {
 
-    public static void write(Context context, ArrayList<Scores> scores){
+    public static void write(Context context, List<Scores> scores){
         String ligne[];
 
         int nbWordWrite;
         int nbWordFailed;
         float nbCharactere;
         String name;
-        Date date;
         String photoPath;
         int time;
 
         try
         {
-
-            FileWriter writer = new FileWriter(context.getFilesDir() + "/Scores.txt");
+            String fileName = "Scores.txt";
+            FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
 
                for (int i = 0; i<scores.size(); i++){
                    name = scores.get(i).name();
@@ -42,14 +40,17 @@ public class ScoreWriter {
                    nbWordWrite = scores.get(i).getNbWordWrite();
                    nbWordFailed = scores.get(i).getNbWordFailed();
                    nbCharactere = scores.get(i).getNbCaracterePerSec();
-                   date = scores.get(i).getDate();
                    photoPath = scores.get(i).getPhotoPath();
+                   writer.write(name+"_"+time+"_"+nbWordWrite+"_"+nbWordFailed+"_"+nbCharactere+"_"+photoPath);
 
-                   writer.write(name+"_"+time+"_"+nbWordWrite+"_"+nbWordFailed+"_"+nbCharactere+"_"+date.toString()+"_"+photoPath);
                 }
+                writer.close();
+               fos.close();
 
-            } catch (IOException e) {
-            Log.d("jonathan","IO exeption");
+
+        } catch (IOException e) {
+            Log.d(e.getMessage(),"IO exeption dans ScoreWriter");
+
         }
     }
 
@@ -68,8 +69,6 @@ public class ScoreWriter {
         } catch (FileNotFoundException e) {
             Log.d("writeImage","Création d'un FileOutput stream impossible");
         }
-
-        // Ecriture de l'image au format binaire
 
 
         return pathName;
