@@ -52,8 +52,6 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         wordsSpinner.setAdapter(adapter);
         wordsSpinner.setOnItemSelectedListener(this);
-
-
     }
 
 

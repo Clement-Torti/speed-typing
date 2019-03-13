@@ -13,3 +13,9 @@ taches a faire:
 
 information a partager :
 
+	pour moi
+	https://developer.android.com/training/data-storage/sqlite
+
+	voir ajouter mot dans spinner ( case autre etc..)
+	effacer les mots quand on passe en onpause (afficher caree noir)
+	attention game activity : fonctionne mais si on la farme deux fois plante, voir log (exeption)
