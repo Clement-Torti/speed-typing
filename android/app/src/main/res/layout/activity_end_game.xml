@@ -36,14 +36,16 @@
             android:src="@drawable/user"/>
 
         <Button
-            android:onClick="takePicture"
-            android:layout_below="@id/userPhotoView"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/takeShot"
+            android:layout_alignTop="@+id/userPhotoView"
+            android:layout_alignBottom="@+id/userPhotoView"
 
-            />
+            android:layout_margin="5dp"
+            android:layout_toStartOf="@+id/userPhotoView"
+            android:layout_toLeftOf="@+id/userPhotoView"
+            android:onClick="takePicture"
+            android:text="@string/takeShot" />
 
     </RelativeLayout>
 
@@ -51,7 +53,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nameView"/>
+        android:id="@+id/nameView"
+        android:textColor="@color/colorAccent"/>
 
     <GridLayout
         android:layout_marginTop="20dp"

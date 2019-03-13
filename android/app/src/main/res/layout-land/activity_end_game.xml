@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/nameView"
-        android:textColor="@android:color/white"/>
+        android:textColor="@color/colorAccent"/>
 
     <GridLayout
         android:layout_marginTop="10dp"
