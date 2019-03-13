@@ -8,6 +8,7 @@ import com.example.speed_typing.R;
 public class SoundBox {
     private static MediaPlayer soundPlayer;
     private static MediaPlayer musicPlayer;
+    private static int length = 0;
 
     public static void playBackgroundSound(Context context) {
         playMusic(R.raw.bg_music, context);
@@ -28,14 +29,27 @@ public class SoundBox {
     }
 
     private static void playMusic(int id, Context context) {
-        musicPlayer = MediaPlayer.create(context, id);
-        musicPlayer.setLooping(true);
-        musicPlayer.start();
+        if(musicPlayer == null){
+            musicPlayer = MediaPlayer.create(context, id);
+            musicPlayer.setLooping(true);
+            musicPlayer.start();
+        }
+        else{
+            musicPlayer.seekTo(length);
+            musicPlayer.start();
+        }
     }
 
     public static void stopMusic() {
         if(musicPlayer != null) {
             musicPlayer.stop();
+            musicPlayer = null;
+            length = 0;
         }
+    }
+
+    public static void pauseMusic(){
+        musicPlayer.pause();
+        length = musicPlayer.getCurrentPosition();
     }
 }

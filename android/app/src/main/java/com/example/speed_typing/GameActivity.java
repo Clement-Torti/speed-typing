@@ -99,7 +99,6 @@ public class GameActivity extends BaseActivity implements IObserver {
 
     }
 
-
     @Override
     public void chronoUpdate() {
         // Increment la difficultee progressivement
@@ -127,13 +126,16 @@ public class GameActivity extends BaseActivity implements IObserver {
         gameTimer.attach(partie);
         gameTimer.attach(this);
 
-        //if (screenIsVertical) {
-        gameTimer.start();
+
 
         if (screenIsVertical) {
+            //if (screenIsVertical) {
+            gameTimer.start();
+
             // Ouvre le clavier
             showKeyboard();
 
+            updateUI();
         }
 
         // Démarre la musique
@@ -182,6 +184,7 @@ public class GameActivity extends BaseActivity implements IObserver {
     protected void onPause() {
         // Arrete le son
         SoundBox.stopMusic();
+
         quit();
         super.onPause();
     }
@@ -195,7 +198,6 @@ public class GameActivity extends BaseActivity implements IObserver {
             endGame();
             return;
         }
-
 
         // wordView a supprimer
         List<TextView> deletedWordView = new ArrayList<>();
@@ -390,7 +392,5 @@ public class GameActivity extends BaseActivity implements IObserver {
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
-
-
 
 }
