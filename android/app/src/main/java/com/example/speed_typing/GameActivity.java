@@ -1,16 +1,14 @@
 package com.example.speed_typing;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +32,7 @@ import java.util.Vector;
 public class GameActivity extends BaseActivity implements IObserver {
     private static int CHAR_SIZE = 40;
     private static int FONT_SIZE = 20;
-    private float DIFICULTY = 18;
+    private float DIFICULTY = 35;
     private static double SCREEN_BOTTOM;
     private TextView tempsView;
     private TextView nbCaracteresView;
@@ -45,13 +43,17 @@ public class GameActivity extends BaseActivity implements IObserver {
     private EditText editText;
     private List<TextView> wordViewList = new ArrayList<>();
     private GameTimer gameTimer;
-
+    private boolean screenIsVertical;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        // get l'orientation de l'ecran et enregistre si il est vertical
+        screenIsVertical = getResources().getConfiguration().orientation == 1;
+        Log.d("jonathan", screenIsVertical +" ");
+        
         // Configuration des boutons
         pauseBtn = findViewById(R.id.pauseBtn);
 
@@ -95,7 +97,6 @@ public class GameActivity extends BaseActivity implements IObserver {
         // Inserer la wordView dans notre vue
         insertWordView(word, x, 0);
 
-
     }
 
 
@@ -115,36 +116,35 @@ public class GameActivity extends BaseActivity implements IObserver {
         // S'abonner à la partie
         partie.attach(this);
 
-        // Setup editText
-        configureEditText();
-
-
         // Remise en place des wordViews si on revient de PauseActivity
         configureWordView();
+
+        // Setup editText
+        configureEditText();
 
         // Création du timer
         gameTimer = new GameTimer(this);
         gameTimer.attach(partie);
         gameTimer.attach(this);
+
+        //if (screenIsVertical) {
         gameTimer.start();
 
-        // Ouvre le clavier
-        showKeyboard();
+        if (screenIsVertical) {
+            // Ouvre le clavier
+            showKeyboard();
+
+        }
 
         // Démarre la musique
         SoundBox.playBackgroundSound(this);
     }
 
-    private void quit(){
-        // Ferme le clavier
-        closeKeyboard();
-
-        // Arrete le son
-        SoundBox.stopMusic();
+    private void quit() {
 
         // Sauvegarde des positions des éléments
         List<Vector<Integer>> wordsPos = new ArrayList<>();
-        for(TextView wordView : wordViewList) {
+        for (TextView wordView : wordViewList) {
             Vector<Integer> pos = new Vector<>();
             pos.add((int) wordView.getX());
             pos.add((int) wordView.getY());
@@ -157,6 +157,12 @@ public class GameActivity extends BaseActivity implements IObserver {
         partie.dettach(this);
         gameTimer.dettach(this);
         gameTimer.dettach(partie);
+
+        if (screenIsVertical) {
+
+            // Ferme le clavier
+            closeKeyboard();
+        }
 
         // Arret du timer
         gameTimer.pause();
@@ -174,6 +180,8 @@ public class GameActivity extends BaseActivity implements IObserver {
 
     @Override
     protected void onPause() {
+        // Arrete le son
+        SoundBox.stopMusic();
         quit();
         super.onPause();
     }

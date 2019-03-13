@@ -73,28 +73,25 @@
             >
 
             <LinearLayout
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/resTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="47"
-                    android:textSize="24sp"
-                    android:id="@+id/resTime"
-                    />
+                    android:textSize="24sp" />
 
                 <TextView
-                    android:layout_marginTop="12dp"
-                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:text="@string/timeUnit"
-                    />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
