@@ -1,6 +1,7 @@
 package com.example.speed_typing.model.Observer;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.speed_typing.model.Word;
 import com.example.speed_typing.model.WordDatabase;
@@ -144,6 +145,7 @@ public class Partie extends Subject implements Serializable, IObserver{
      */
     public void setWordsPositions(List<Vector<Integer>> positions) {
         wordsPositions = positions;
+        Log.d("jonathan","      partie nb wordposition "+wordsPositions.size());
     }
 
     /*

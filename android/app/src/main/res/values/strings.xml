@@ -21,6 +21,9 @@
     <string name="homeTitle">Welcome to speed-typing!</string>
     <string name="homeDesc">Begin a new Game</string>
     <string name="chooseCategory">Choose category</string>
+
+    <string name="GameIsHorizontal">Vous ne pouvez pas jouer si l\'ecran est a l\'horizontal
+    veuillez tourner le telephone</string>
     
     <string-array name="wordsFamily">
         <item>Français</item>

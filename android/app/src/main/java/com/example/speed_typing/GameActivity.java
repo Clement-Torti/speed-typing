@@ -52,7 +52,6 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // get l'orientation de l'ecran et enregistre si il est vertical
         screenIsVertical = getResources().getConfiguration().orientation == 1;
-        Log.d("jonathan", screenIsVertical +" ");
         
         // Configuration des boutons
         pauseBtn = findViewById(R.id.pauseBtn);
@@ -81,7 +80,7 @@ public class GameActivity extends BaseActivity implements IObserver {
 
 
     /*
-     * Appelée lorsque la partie ajout un mot
+     * Appelée lorsque la partie ajoute un mot
      */
     @Override
     public void update() {
@@ -112,14 +111,19 @@ public class GameActivity extends BaseActivity implements IObserver {
     protected void onResume() {
         super.onResume();
 
+        // Démarre la musique
+        SoundBox.playBackgroundSound(this);
+
         // S'abonner à la partie
         partie.attach(this);
 
-        // Remise en place des wordViews si on revient de PauseActivity
-        configureWordView();
+        if (screenIsVertical) {
+            // Remise en place des wordViews si on revient de PauseActivity
+            configureWordView();
 
-        // Setup editText
-        configureEditText();
+            // Setup editText
+            configureEditText();
+        }
 
         // Création du timer
         gameTimer = new GameTimer(this);
@@ -134,40 +138,37 @@ public class GameActivity extends BaseActivity implements IObserver {
 
             // Ouvre le clavier
             showKeyboard();
-
-            updateUI();
         }
-
-        // Démarre la musique
-        SoundBox.playBackgroundSound(this);
+        updateUI();
     }
 
     private void quit() {
 
-        // Sauvegarde des positions des éléments
-        List<Vector<Integer>> wordsPos = new ArrayList<>();
-        for (TextView wordView : wordViewList) {
-            Vector<Integer> pos = new Vector<>();
-            pos.add((int) wordView.getX());
-            pos.add((int) wordView.getY());
+        // Arret du timer
+        gameTimer.pause();
 
-            wordsPos.add(pos);
+        if (screenIsVertical) {
+            // Ferme le clavier
+            closeKeyboard();
+
+            Log.d("jonathan","je save");
+            // Sauvegarde des positions des éléments
+            List<Vector<Integer>> wordsPos = new ArrayList<>();
+            Log.d("jonathan","wordViewList size = "+wordViewList.size());
+            for (TextView wordView : wordViewList) {
+                Vector<Integer> pos = new Vector<>();
+                pos.add((int) wordView.getX());
+                pos.add((int) wordView.getY());
+
+                wordsPos.add(pos);
+            }
+            partie.setWordsPositions(wordsPos);
         }
-        partie.setWordsPositions(wordsPos);
 
         // On se desabonne à la partie
         partie.dettach(this);
         gameTimer.dettach(this);
         gameTimer.dettach(partie);
-
-        if (screenIsVertical) {
-
-            // Ferme le clavier
-            closeKeyboard();
-        }
-
-        // Arret du timer
-        gameTimer.pause();
     }
 
     /*
@@ -183,7 +184,7 @@ public class GameActivity extends BaseActivity implements IObserver {
     @Override
     protected void onPause() {
         // Arrete le son
-        SoundBox.stopMusic();
+        //SoundBox.pauseMusic();
 
         quit();
         super.onPause();
@@ -212,31 +213,32 @@ public class GameActivity extends BaseActivity implements IObserver {
         nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());
 
 
-        // Fait descendre la vue plus ou mpins vite en fonction de la difficulté
-        for(TextView t : wordViewList) {
-            float newY = t.getY() + DIFICULTY;
-            t.setY(newY);
-            // Check si le mot est descendu en bas
-            if(isAtBottom(newY)) {
-                SoundBox.playFailSound(this);
-                String texte = t.getText().toString();
-                Word word = new Word(texte);
-                partie.wordMissed(word);
-                deletedWordView.add(t);
+        if (screenIsVertical) {
+            // Fait descendre la vue plus ou moins vite en fonction de la difficulté
+            for (TextView t : wordViewList) {
+                float newY = t.getY() + DIFICULTY;
+                t.setY(newY);
+                // Check si le mot est descendu en bas
+                if (isAtBottom(newY)) {
+                    SoundBox.playFailSound(this);
+                    String texte = t.getText().toString();
+                    Word word = new Word(texte);
+                    partie.wordMissed(word);
+                    deletedWordView.add(t);
+                }
+
+                // Changer la couleur du texte en fonction de la hauteur
+                int redValue = (int) ((255 * newY) / SCREEN_BOTTOM);
+                t.setTextColor(Color.argb(255, redValue, 255 - redValue, 0));
 
             }
-            // Changer la couleur du texte en fonction de la hauteur
-            int redValue = (int) ((255 * newY) / SCREEN_BOTTOM);
-            t.setTextColor(Color.argb(255, redValue, 255 - redValue, 0));
 
 
-        }
-
-
-        // Supprime les textView arrivées en bas
-        for(TextView textView : deletedWordView) {
-            ((ViewGroup)textView.getParent()).removeView(textView);
-            wordViewList.remove(textView);
+            // Supprime les textView arrivées en bas
+            for (TextView textView : deletedWordView) {
+                ((ViewGroup) textView.getParent()).removeView(textView);
+                wordViewList.remove(textView);
+            }
         }
 
     }
@@ -256,7 +258,10 @@ public class GameActivity extends BaseActivity implements IObserver {
     private void configureWordView() {
         int i = 0;
 
+        Log.d("jonathan","nb mot a replacer "+partie.getWordsPositions().size());
+        Log.d("jonathan","nb mot existant "+partie.getWords());
         for(Vector<Integer> pos : partie.getWordsPositions()) {
+
             Word word = partie.getWords().get(i);
 
             insertWordView(word, pos.get(0), pos.get(1)-(int)DIFICULTY);

@@ -24,6 +24,9 @@
     <string name="homeDesc">Commencez une nouvelle partie</string>
     <string name="chooseCategory">Choisir la catégorie</string>
 
+    <string name="GameIsHorizontal">Vous ne pouvez pas jouer si l\'ecran est a l\'horizontal
+    veuillez tourner le telephone</string>
+
     <string-array name="wordsFamily">
         <item>Français</item>
         <item>English</item>
