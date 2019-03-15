@@ -32,12 +32,14 @@ public class ScoreReader {
         String elements[];
 
         int nbWordWrite;
-        int nbWordFailed;
-        float nbCharactere;
+        int nbCharactere;
         String name;
         String photoPath;
         int time;
+        int nbWordWrittenCaracteres;
 
+        // Vider la liste des scores
+        scoreLignes.clear();
 
         try {
             //creation buffer
@@ -57,13 +59,13 @@ public class ScoreReader {
 
                 nbWordWrite = Integer.parseInt(elements[2]);
 
-                nbWordFailed= Integer.parseInt(elements[3]);
+                nbWordWrittenCaracteres = Integer.parseInt(elements[3]);
 
-                nbCharactere = Float.parseFloat(elements[4]);
+                nbCharactere = Integer.parseInt(elements[4]);
 
                 photoPath = elements[5];
 
-                scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordFailed, nbCharactere, photoPath));
+                scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordWrittenCaracteres, nbCharactere, photoPath));
             }
 
             ips.close();

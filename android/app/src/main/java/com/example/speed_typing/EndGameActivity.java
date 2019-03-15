@@ -32,7 +32,6 @@ public class EndGameActivity extends BaseActivity {
     private ImageView userPhotoView;
     private TextView timeView;
     private TextView nbWordWrittenView;
-    private TextView nbWordMissedView;
     private TextView precisionView;
     private TextView nbCaractereView;
     private Button homeBtn;
@@ -53,7 +52,6 @@ public class EndGameActivity extends BaseActivity {
         userPhotoView = (ImageView) findViewById(R.id.userPhotoView);
         timeView = (TextView) findViewById(R.id.resTime);
         nbWordWrittenView = (TextView) findViewById(R.id.resNbMotsEcrits);
-        nbWordMissedView = (TextView) findViewById(R.id.resNbMotsRates);
         precisionView = (TextView) findViewById(R.id.resPrecision);
         nbCaractereView = (TextView) findViewById(R.id.resNbCaracteres);
         updateUI();
@@ -71,8 +69,7 @@ public class EndGameActivity extends BaseActivity {
         format.setMaximumFractionDigits(1);
         timeView.setText(partie.getChrono() + "");
         nbWordWrittenView.setText(partie.getNbWordWrite() + "");
-        nbWordMissedView.setText(partie.getNbWordFailed() + "");
-        float precision = (partie.getNbWordWrite()  / ((float) partie.getNbWordFailed() + partie.getNbWordWrite())) * 100;
+        float precision = (partie.getNbWordWrittenCarateres()/  partie.getNbCaractere()) * 100;
         precisionView.setText(format.format(precision)+ "");
         format.setMaximumFractionDigits(2);
         nbCaractereView.setText(format.format(partie.nbCaracterePerSec()) + "");
@@ -117,10 +114,10 @@ public class EndGameActivity extends BaseActivity {
         String name = nameView.getText().toString();
         int time = partie.getChrono();
         int nbWordWrite = partie.getNbWordWrite();
-        int nbWordFailed = partie.getNbWordFailed();
         int nbCaractere = partie.getNbCaractere();
+        int nbWordWrittenCaractere = partie.getNbWordWrittenCarateres();
 
-        Scores newScore = new Scores(name, time, nbWordWrite, nbWordFailed, nbCaractere, photoPath);
+        Scores newScore = new Scores(name, time, nbWordWrite, nbWordWrittenCaractere, nbCaractere, photoPath);
 
         // On récupère la liste des scores
         List<Scores> scores = ScoreReader.read(getApplicationContext());

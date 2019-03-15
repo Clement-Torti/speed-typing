@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.speed_typing.R;
+import com.example.speed_typing.model.Util.ScoreReader;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -62,15 +64,15 @@ public class ScoreAdapter extends BaseAdapter {
         TextView nbWordWrittenView = (TextView) convertView.findViewById(R.id.scoreNbWordWritten);
         nbWordWrittenView.setText(nbWordWrittenView.getText() + ": " + score.getNbWordWrite());
 
-        TextView nbWordFailedView = (TextView) convertView.findViewById(R.id.scoreNbWordFailed);
-        nbWordFailedView.setText(nbWordFailedView.getText() + ": " + score.getNbWordFailed());
-
-
         DecimalFormat format = new DecimalFormat();
         format.setMaximumFractionDigits(1);
-        float precision = (score.getNbWordWrite() / ((float) score.getNbWordWrite() + score.getNbWordFailed())) * 100;
+        float precision = (score.getNbWordWrittenCaractere() /  score.getNbCaractere()) * 100;
         TextView precisionView = (TextView) convertView.findViewById(R.id.scorePrecision);
         precisionView.setText(precisionView.getText() + ": " + format.format(precision));
+
+        // On récupère l'imageView
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.scorePhotoView);
+        imageView.setImageBitmap(ScoreReader.readImage(score.getPhotoPath(), parent.getContext()));
 
 
         return convertView;

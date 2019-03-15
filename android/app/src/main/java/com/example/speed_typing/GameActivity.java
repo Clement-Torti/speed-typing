@@ -39,7 +39,6 @@ public class GameActivity extends BaseActivity implements IObserver {
     private TextView tempsView;
     private TextView nbCaracteresView;
     private TextView nbMotsEcritsView;
-    private TextView nbMotsRatesView;
     private TextView nbLifeView;
     private Button pauseBtn;
     private EditText editText;
@@ -66,9 +65,6 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         nbMotsEcritsView = findViewById(R.id.nbMotEcrits);
         nbMotsEcritsView.setTypeface(nbMotsEcritsView.getTypeface(), Typeface.BOLD);
-
-        nbMotsRatesView = findViewById(R.id.nbMotsRates);
-        nbMotsRatesView.setTypeface(nbMotsRatesView.getTypeface(), Typeface.BOLD);
 
         nbLifeView = findViewById(R.id.nbLife);
         nbLifeView.setTypeface(nbLifeView.getTypeface(), Typeface.BOLD);
@@ -198,7 +194,6 @@ public class GameActivity extends BaseActivity implements IObserver {
         format.setMaximumFractionDigits(2);
         nbCaracteresView.setText(getResources().getString(R.string.nbCaracterePerSec) + ": " + format.format(partie.nbCaracterePerSec()));
         nbMotsEcritsView.setText(getResources().getString(R.string.nbWordWrite) + ": " + partie.getNbWordWrite());
-        nbMotsRatesView.setText(getResources().getString(R.string.nbWordMissed) + ": " + partie.getNbWordFailed());
         nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());
 
 
@@ -272,6 +267,23 @@ public class GameActivity extends BaseActivity implements IObserver {
                 // Informer la partie qu'un caractère vient d'être écrit
                 partie.caractereWritten();
 
+                // Cherche un mot de la vue correspondant pour le supprimer
+                String text = editText.getText().toString().replace(" ", "");
+                Word written = new Word(text);
+
+                // On vérifie si ce mot est assez long pour exister dans la vue
+                if(text.length() >= partie.minWordLength()) {
+
+                    // on verifie s'il existe
+                    if(partie.wordWritten(written)) {
+                        deleteViewWithText(text);
+                        editText.setText("");
+                        SoundBox.playSuccessSound(getApplicationContext());
+                    } else {
+                        SoundBox.playFailSound(getApplicationContext());
+                    }
+                }
+
             }
 
             @Override
@@ -279,25 +291,7 @@ public class GameActivity extends BaseActivity implements IObserver {
             }
         });
 
-        // Lorsque l'utilisateur clique sur la touche entrée
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = editText.getText().toString().replace(" ", "");
-                Word wordWritten = new Word(text);
 
-                // On vérifie si ce mot existe
-                if(partie.wordWritten(wordWritten)) {
-                    deleteViewWithText(text);
-                    SoundBox.playSuccessSound(getApplicationContext());
-                } else {
-                    SoundBox.playFailSound(getApplicationContext());
-                }
-
-                // On efface le texte de l'editText
-                editText.setText("");
-            }
-        });
     }
 
     /*

@@ -8,26 +8,26 @@ public class Scores {
     private String name;
     private int time;
     private int nbWordWrite;
-    private int nbWordFailed;
-    private float nbCaractere;
+    private int nbCaractere;
+    private int nbWordWrittenCaractere;
 
     /*
     * Le chemin d'acces à l'image du joueur
      */
     private String photoPath;
 
-    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, float nbCaractere, String photoPath) {
+    public Scores(String name, int time, int nbWordWrite, int nbWordWrittenCaractere, int nbCaractere, String photoPath) {
 
         this.name = name;
         this.time = time;
         this.nbWordWrite = nbWordWrite;
-        this.nbWordFailed = nbWordFailed;
+        this.nbWordWrittenCaractere = nbWordWrittenCaractere;
         this.nbCaractere = nbCaractere;
         this.photoPath = photoPath;
     }
 
-    public Scores(String name, int time, int nbWordWrite, int nbWordFailed, float nbCaractere) {
-        this(name, time, nbWordWrite, nbWordFailed, nbCaractere, "");
+    public Scores(String name, int time, int nbWordWrite, int nbWordWrittenCaractere, int nbCaractere) {
+        this(name, time, nbWordWrite, nbWordWrittenCaractere, nbCaractere, "");
     }
 
     /*
@@ -36,9 +36,9 @@ public class Scores {
     public String name() { return name; }
     public int time() { return time; }
     public int getNbWordWrite() { return nbWordWrite; }
-    public int getNbWordFailed() { return nbWordFailed; }
     public float getNbCaracterePerSec() { return (float)nbCaractere/time; }
-
+    public int getNbWordWrittenCaractere() { return nbWordWrittenCaractere; }
+    public int getNbCaractere() { return nbCaractere; }
 
     public String getPhotoPath() {
         return photoPath;
@@ -53,7 +53,7 @@ public class Scores {
     public int getTime() { return time; }
 
     @Override public String toString() {
-        return name+"_"+time+"_"+nbWordWrite+"_"+nbWordFailed+"_"+nbCaractere+"_"+photoPath;
+        return name+"_"+time+"_"+nbWordWrite+"_"+nbCaractere+"_"+photoPath;
     }
 
 }

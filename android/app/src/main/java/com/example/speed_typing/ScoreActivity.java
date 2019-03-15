@@ -55,18 +55,8 @@ public class ScoreActivity extends BaseActivity {
     }
 
     private void configureListView() {
-        Scores s = new Scores("Clem", 1, 1, 1, 1, "coucou");
-        List<Scores> scores = new ArrayList<>();
-        scores.add(s);
-
-        ScoreWriter.write(getApplicationContext(), scores);
-        ScoreWriter.write(getApplicationContext(), scores);
-        ScoreWriter.write(getApplicationContext(), scores);
-
-        scores.clear();
-
-        scores = ScoreReader.read(this);
-
+        List<Scores> scores = ScoreReader.read(this);
+        System.out.println("nbScores: " + scores.size());
         ScoreAdapter adapter = new ScoreAdapter(this, scores, getLayoutInflater());
         scoresListView.setAdapter(adapter);
     }

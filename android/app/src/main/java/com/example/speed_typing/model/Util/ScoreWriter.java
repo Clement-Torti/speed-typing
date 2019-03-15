@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
@@ -22,8 +23,8 @@ public class ScoreWriter {
         String ligne[];
 
         int nbWordWrite;
-        int nbWordFailed;
-        float nbCharactere;
+        float nbCharacterePerSec;
+        int nbWordWrittenCaracteres;
         String name;
         String photoPath;
         int time;
@@ -31,19 +32,24 @@ public class ScoreWriter {
         try
         {
             String fileName = "Scores.txt";
+            // Supprime le contenu actuelle
+            File f = new File(context.getFilesDir(), fileName);
+            f.delete();
             FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
+            PrintWriter printWriter = new PrintWriter(writer);
 
-               for (int i = 0; i<scores.size(); i++){
+               for (int i = 0; i<scores.size(); i++) {
                    name = scores.get(i).name();
                    time = scores.get(i).time();
                    nbWordWrite = scores.get(i).getNbWordWrite();
-                   nbWordFailed = scores.get(i).getNbWordFailed();
-                   nbCharactere = scores.get(i).getNbCaracterePerSec();
+                   nbWordWrittenCaracteres = scores.get(i).getNbWordWrittenCaractere();
+                   nbCharacterePerSec = scores.get(i).getNbCaracterePerSec();
                    photoPath = scores.get(i).getPhotoPath();
-                   writer.write(name+"_"+time+"_"+nbWordWrite+"_"+nbWordFailed+"_"+nbCharactere+"_"+photoPath);
-
+                   writer.write(name + "_" + time + "_" + nbWordWrite + "_" + nbWordWrittenCaracteres + "_" + nbCharacterePerSec + "_" +photoPath);
+                    printWriter.println();
                 }
+                printWriter.close();
                 writer.close();
                fos.close();
 
