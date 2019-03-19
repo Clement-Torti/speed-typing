@@ -50,9 +50,9 @@ public class ScoreReader {
             BufferedReader br = new BufferedReader(ipsr);
 
 
+            // name + "_" + time + "_" + nbWordWrite + "_" + nbWordWrittenCaracteres + "_" + nbCharacterePerSec + "_" +photoPath
             while((ligne = br.readLine()) != null) {
                 elements = ligne.split("_");
-
                 name = elements[0];
 
                 time = Integer.parseInt(elements[1]);
@@ -67,7 +67,7 @@ public class ScoreReader {
 
                 scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordWrittenCaracteres, nbCharactere, photoPath));
             }
-
+            System.out.println("Lecture effectuée");
             ips.close();
             ipsr.close();
             br.close();

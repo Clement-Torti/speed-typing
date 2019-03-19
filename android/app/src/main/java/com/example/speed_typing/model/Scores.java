@@ -1,10 +1,11 @@
 package com.example.speed_typing.model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.Date;
 
-public class Scores {
+public class Scores implements Comparable<Scores> {
     private String name;
     private int time;
     private int nbWordWrite;
@@ -33,12 +34,11 @@ public class Scores {
     /*
     * Getters
      */
-    public String name() { return name; }
-    public int time() { return time; }
     public int getNbWordWrite() { return nbWordWrite; }
     public float getNbCaracterePerSec() { return (float)nbCaractere/time; }
     public int getNbWordWrittenCaractere() { return nbWordWrittenCaractere; }
     public int getNbCaractere() { return nbCaractere; }
+    public float getPrecision() { return ((float) nbWordWrittenCaractere/ nbCaractere) * 100;}
 
     public String getPhotoPath() {
         return photoPath;
@@ -53,7 +53,26 @@ public class Scores {
     public int getTime() { return time; }
 
     @Override public String toString() {
-        return name+"_"+time+"_"+nbWordWrite+"_"+nbCaractere+"_"+photoPath;
+        return name+"_"+time+"_"+nbWordWrite+"_"+nbWordWrittenCaractere+"_"+nbCaractere+"_"+photoPath;
     }
 
+    @Override
+    public int compareTo(@NonNull Scores o) {
+
+        if(nbWordWrite != o.nbWordWrite) {
+            return nbWordWrite - o.nbWordWrite;
+        }
+
+        if(getPrecision() != o.getPrecision()) {
+            return (int) (getPrecision() - o.getPrecision());
+        }
+
+        if(time != o.time) {
+            return time - o.time;
+        }
+
+
+
+        return 0;
+    }
 }

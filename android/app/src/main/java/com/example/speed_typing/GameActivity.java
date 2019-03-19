@@ -34,7 +34,7 @@ import java.util.Vector;
 public class GameActivity extends BaseActivity implements IObserver {
     private static int CHAR_SIZE = 40;
     private static int FONT_SIZE = 20;
-    private float DIFICULTY = 18;
+    private float DIFICULTY = 30;
     private static double SCREEN_BOTTOM;
     private TextView tempsView;
     private TextView nbCaracteresView;
@@ -98,7 +98,7 @@ public class GameActivity extends BaseActivity implements IObserver {
     @Override
     public void chronoUpdate() {
         // Increment la difficultee progressivement
-        DIFICULTY += 0.5;
+        DIFICULTY += 2;
 
         // Met à jour la vue
         updateUI();
@@ -196,7 +196,7 @@ public class GameActivity extends BaseActivity implements IObserver {
         nbMotsEcritsView.setText(getResources().getString(R.string.nbWordWrite) + ": " + partie.getNbWordWrite());
         nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());
 
-
+        System.out.println("updateUICall");
         // Fait descendre la vue plus ou mpins vite en fonction de la difficulté
         for(TextView t : wordViewList) {
             float newY = t.getY() + DIFICULTY;
@@ -210,9 +210,16 @@ public class GameActivity extends BaseActivity implements IObserver {
                 deletedWordView.add(t);
 
             }
-            // Changer la couleur du texte en fonction de la hauteur
-            int redValue = (int) ((255 * newY) / SCREEN_BOTTOM);
-            t.setTextColor(Color.argb(255, redValue, 255 - redValue, 0));
+
+            if(!editText.getText().toString().isEmpty() &&  t.getText().toString().startsWith(editText.getText().toString())) {
+                // Mettre en bleu les mot en cours d'écriture
+                t.setTextColor(Color.argb(255, 150, 150, 255));
+            } else {
+                // Changer la couleur du texte en fonction de la hauteur
+                int redValue = (int) ((255 * newY) / SCREEN_BOTTOM);
+                t.setTextColor(Color.argb(255, redValue, 255 - redValue, 0));
+            }
+
 
 
         }
@@ -279,8 +286,6 @@ public class GameActivity extends BaseActivity implements IObserver {
                         deleteViewWithText(text);
                         editText.setText("");
                         SoundBox.playSuccessSound(getApplicationContext());
-                    } else {
-                        SoundBox.playFailSound(getApplicationContext());
                     }
                 }
 

@@ -33,15 +33,6 @@ public class ScoreActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        /*
-        ArrayList<Scores> scores = ScoreReader.read("Scores.txt", getApplicationContext());
-        Log.d("jonathan","      nom du score 1 " + scores.get(0).name());
-
-        scores.add(new Scores("nom2",25,35,45,55,"path"));
-
-        //ScoreWriter.write("Scores.txt",getApplicationContext(),scores);
-        */
-
         // Configuration des boutons de navigation
         returnBtn = findViewById(R.id.returnBtn);
         configureNavigationBtn(returnBtn, AccueilActivity.class, new HashMap<String, Serializable>());

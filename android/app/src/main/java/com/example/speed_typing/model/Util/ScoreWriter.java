@@ -22,8 +22,8 @@ public class ScoreWriter {
     public static void write(Context context, List<Scores> scores){
         String ligne[];
 
+        int nbCaractere;
         int nbWordWrite;
-        float nbCharacterePerSec;
         int nbWordWrittenCaracteres;
         String name;
         String photoPath;
@@ -40,13 +40,14 @@ public class ScoreWriter {
             PrintWriter printWriter = new PrintWriter(writer);
 
                for (int i = 0; i<scores.size(); i++) {
-                   name = scores.get(i).name();
-                   time = scores.get(i).time();
+                   name = scores.get(i).getName();
+                   time = scores.get(i).getTime();
                    nbWordWrite = scores.get(i).getNbWordWrite();
                    nbWordWrittenCaracteres = scores.get(i).getNbWordWrittenCaractere();
-                   nbCharacterePerSec = scores.get(i).getNbCaracterePerSec();
+                   nbCaractere = scores.get(i).getNbCaractere();
                    photoPath = scores.get(i).getPhotoPath();
-                   writer.write(name + "_" + time + "_" + nbWordWrite + "_" + nbWordWrittenCaracteres + "_" + nbCharacterePerSec + "_" +photoPath);
+                   String scoreStr = name + "_" + time + "_" + nbWordWrite + "_" + nbWordWrittenCaracteres + "_" + nbCaractere + "_" + photoPath;
+                   writer.write(scoreStr);
                     printWriter.println();
                 }
                 printWriter.close();

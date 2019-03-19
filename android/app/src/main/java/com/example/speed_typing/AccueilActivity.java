@@ -63,9 +63,16 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
         String texte = parent.getItemAtPosition(position).toString();
 
         wordType = WordFactory.getWordType(texte);
+    }
 
+    @Override
+    protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
         // Creation de la partie
         partie = new Partie(this.getApplicationContext(), wordType);
+        super.changeActivity(cls, args);
+
+
+
     }
 
     @Override

@@ -66,10 +66,10 @@ public class EndGameActivity extends BaseActivity {
      */
     private void updateUI() {
         DecimalFormat format = new DecimalFormat();
-        format.setMaximumFractionDigits(1);
+        format.setMaximumFractionDigits(2);
         timeView.setText(partie.getChrono() + "");
         nbWordWrittenView.setText(partie.getNbWordWrite() + "");
-        float precision = (partie.getNbWordWrittenCarateres()/  partie.getNbCaractere()) * 100;
+        float precision = ((float)partie.getNbWordWrittenCarateres()/  partie.getNbCaractere()) * 100;
         precisionView.setText(format.format(precision)+ "");
         format.setMaximumFractionDigits(2);
         nbCaractereView.setText(format.format(partie.nbCaracterePerSec()) + "");
@@ -134,8 +134,19 @@ public class EndGameActivity extends BaseActivity {
     * Ajoute le score dans la liste au bon endroit
      */
     private List<Scores> insertScore(Scores score, List<Scores> scores) {
-        // Ajoute à la fin pour le moment, à implémenter...
+
+        int i;
+
+        for(i=0; i<scores.size(); i++) {
+            if(scores.get(i).compareTo(score) < 0) {
+                scores.add(i, score);
+                return scores;
+            }
+        }
+
+        // Ce score est la plus mauvais, on l'ajoute à la fin
         scores.add(score);
+
         return scores;
     }
 }

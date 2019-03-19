@@ -19,6 +19,7 @@ import java.util.Vector;
 public class Partie extends Subject implements Serializable, IObserver{
     public static final long serialversionUID = 129348938L;
     public static final int NB_LIFE = 5;
+    public static int WORD_DELAY = 2;
     private int chrono;
     private int nbWordWrite;
     private int nbLife;
@@ -135,7 +136,7 @@ public class Partie extends Subject implements Serializable, IObserver{
     public void chronoUpdate() {
         chrono++;
 
-        if(chrono % 2 == 0) {
+        if(chrono % WORD_DELAY == 0) {
             addNewWord();
         }
 

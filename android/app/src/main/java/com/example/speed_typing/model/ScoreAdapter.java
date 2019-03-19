@@ -51,6 +51,9 @@ public class ScoreAdapter extends BaseAdapter {
 
 
         // On ajoute les éléments de vue
+        TextView rankView = (TextView) convertView.findViewById(R.id.scoreRank);
+        rankView.setText((position + 1) + "");
+
         TextView nameView = (TextView) convertView.findViewById(R.id.nameView);
         nameView.setText(score.getName());
 
@@ -66,7 +69,7 @@ public class ScoreAdapter extends BaseAdapter {
 
         DecimalFormat format = new DecimalFormat();
         format.setMaximumFractionDigits(1);
-        float precision = (score.getNbWordWrittenCaractere() /  score.getNbCaractere()) * 100;
+        float precision = ((float)score.getNbWordWrittenCaractere() /  score.getNbCaractere()) * 100;
         TextView precisionView = (TextView) convertView.findViewById(R.id.scorePrecision);
         precisionView.setText(precisionView.getText() + ": " + format.format(precision));
 
