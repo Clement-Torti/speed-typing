@@ -90,19 +90,38 @@
         android:layout_height="95dp"
         android:gravity="center"
 
-        >
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/GameIsHorizontal"
+            android:id="@+id/GameIsHorizontal1"
             android:layout_width="match_parent"
             android:inputType="text"
             android:lines="1"
-            android:text="@string/GameIsHorizontal"
+            android:text="@string/GameIsHorizontal1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="18dp"
             android:textStyle="bold|italic" />
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="95dp"
+        android:gravity="center"
+
+        >
+
+        <TextView
+            android:id="@+id/GameIsHorizontal2"
+            android:layout_width="match_parent"
+            android:inputType="text"
+            android:lines="1"
+            android:text="@string/GameIsHorizontal2"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="18dp"
+            android:textStyle="bold|italic" />
     </TableRow>
 
 

@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -111,6 +112,10 @@ public class GameActivity extends BaseActivity implements IObserver {
     @Override
     protected void onResume() {
         super.onResume();
+
+
+        removeWordView(wordViewList);
+        wordViewList.clear();
 
         // Démarre la musique
         SoundBox.playBackgroundSound(this);
@@ -255,14 +260,20 @@ public class GameActivity extends BaseActivity implements IObserver {
             }
         }
 
-
-            // Supprime les textView arrivées en bas
-            for (TextView textView : deletedWordView) {
-                ((ViewGroup) textView.getParent()).removeView(textView);
-                wordViewList.remove(textView);
-            }
+        // Supprime les textView arrivées en bas
+        for (TextView textView : deletedWordView) {
+            ((ViewGroup) textView.getParent()).removeView(textView);
+            wordViewList.remove(textView);
         }
+    }
 
+    // Supprime les textView
+    private void removeWordView (List<TextView> wordViewList){
+        for (Iterator<TextView> a = wordViewList.iterator(); a.hasNext(); ){
+            TextView textView = a.next();
+            ((ViewGroup) textView.getParent()).removeView(textView);
+        }
+    }
 
     /*
     * @boolean True si la wordView est en dessous du seuil
