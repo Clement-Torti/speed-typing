@@ -1,0 +1,36 @@
+commande a faire :
+
+1/ git pull => recupere les modif du git "commun"
+
+2/ git status => info sur l'etat de git
+3/ git add <fichier> => ajoute les fichier (add * ajoute tout) 
+4/ git commit -m "mon message" => enregistre les modifs sur votre pc, mettre un commentaire sur ce que vous avez fait, clair et chose a faire
+
+5/ git push => enregistre ce que vous avez fait sur le git "commun"
+
+
+git branch <nom> 	=>  creer le branche <nom>
+git checkout <nom>  	=>  ce dirige dans la branche <nom>
+git push --set --upstream origin => ajoute la nouvelle branch dans le repot
+git rebase <master> 	=>  fusionne le master dans la branche (recuperer des chose du master)
+
+.gitignore => si le fichier est deja existant (dans untracked file) il faut le supprimer pour que gitignore s'applique => git rm -r --cached monfichieradelete
+
+
+git checkout master
+git merge <nom> 	=>  fusionne la branche <nom> dans la branche commune (ici master) 
+
+infos:
+	.gitignore
+	git blame  => retourne jonathan
+	git log  	=> affiche les derniere modif du repot
+
+
+git difftool  (--tool)
+git mergetool
+
+tool =>       git difftool --tool-help  	--tool=meld
+
+
+
+.gitconfig   =>  meld ?  modifier option

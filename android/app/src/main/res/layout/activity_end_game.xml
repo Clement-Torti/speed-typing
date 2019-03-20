@@ -41,9 +41,13 @@
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/takeShot"
+            android:layout_alignTop="@+id/userPhotoView"
+            android:layout_alignBottom="@+id/userPhotoView"
 
-            />
+            android:layout_margin="5dp"
+            android:layout_toStartOf="@+id/userPhotoView"
+            android:layout_toLeftOf="@+id/userPhotoView"
+            android:text="@string/takeShot" />
 
     </RelativeLayout>
 
@@ -58,7 +62,8 @@
         android:layout_gravity="center"
         android:padding="10dp"
         android:singleLine="true"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:textColor="@color/colorAccent"/>
 
     <GridLayout
         android:layout_marginTop="20dp"
@@ -84,15 +89,14 @@
                 android:padding="16dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/resTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="47"
                     android:textSize="24sp"
-                    android:id="@+id/resTime"
                     />
 
                 <TextView
@@ -100,8 +104,7 @@
                     android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/timeUnit"
-                    />
+                    android:text="@string/timeUnit"/>
 
             </LinearLayout>
 
