@@ -19,45 +19,48 @@
             android:rowCount="2">
 
             <TextView
-                android:id="@+id/nbMotEcrits"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/nbMotEcrits"
+                android:lines="1"
+                android:layout_marginBottom="8dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_marginBottom="8dp"
-                android:lines="1"
                 android:textAlignment="center"
                 android:textFontWeight="700" />
 
             <TextView
-                android:id="@+id/nbMotsRates"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/nbMotsRates"
+                android:lines="1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:lines="1"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                />
 
 
             <Button
                 android:id="@+id/pauseBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/pause_btn"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_marginBottom="8dp"
-                android:text="@string/pause_btn" />
+                />
 
 
             <TextView
-                android:id="@+id/nbCaracteres"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/nbCaracteres"
+                android:lines="1"
+                android:layout_marginBottom="8dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_marginBottom="8dp"
-                android:lines="1"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                />
 
             <TextView
                 android:id="@+id/nbLife"
@@ -77,6 +80,7 @@
                 android:textAlignment="center" />
 
         </GridLayout>
+
 
 
     </TableRow>

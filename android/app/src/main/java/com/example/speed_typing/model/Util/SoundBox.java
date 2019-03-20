@@ -49,7 +49,9 @@ public class SoundBox {
     }
 
     public static void pauseMusic(){
-        musicPlayer.pause();
-        length = musicPlayer.getCurrentPosition();
+        if (musicPlayer != null){
+            musicPlayer.pause();
+            length = musicPlayer.getCurrentPosition();
+        }
     }
 }

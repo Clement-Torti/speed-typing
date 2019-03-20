@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="400dp"
     android:background="@color/colorSpace"
     android:gravity="center"
     android:orientation="vertical"
@@ -63,17 +63,7 @@
             android:text="@string/nbWordWrite"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/scoreNbWordFailed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:text="@string/nbWordMissed"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp" />
-
+        
         <TextView
             android:id="@+id/scorePrecision"
             android:layout_width="wrap_content"
@@ -88,8 +78,8 @@
 
     <ImageView
         android:id="@+id/scorePhotoView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="230dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp" />
 

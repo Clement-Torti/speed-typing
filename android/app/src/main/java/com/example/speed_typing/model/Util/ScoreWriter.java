@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
@@ -21,9 +22,9 @@ public class ScoreWriter {
     public static void write(Context context, List<Scores> scores){
         String ligne[];
 
+        int nbCaractere;
         int nbWordWrite;
-        int nbWordFailed;
-        float nbCharactere;
+        int nbWordWrittenCaracteres;
         String name;
         String photoPath;
         int time;
@@ -31,19 +32,25 @@ public class ScoreWriter {
         try
         {
             String fileName = "Scores.txt";
+            // Supprime le contenu actuelle
+            File f = new File(context.getFilesDir(), fileName);
+            f.delete();
             FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
+            PrintWriter printWriter = new PrintWriter(writer);
 
-               for (int i = 0; i<scores.size(); i++){
-                   name = scores.get(i).name();
-                   time = scores.get(i).time();
+               for (int i = 0; i<scores.size(); i++) {
+                   name = scores.get(i).getName();
+                   time = scores.get(i).getTime();
                    nbWordWrite = scores.get(i).getNbWordWrite();
-                   nbWordFailed = scores.get(i).getNbWordFailed();
-                   nbCharactere = scores.get(i).getNbCaracterePerSec();
+                   nbWordWrittenCaracteres = scores.get(i).getNbWordWrittenCaractere();
+                   nbCaractere = scores.get(i).getNbCaractere();
                    photoPath = scores.get(i).getPhotoPath();
-                   writer.write(name+"_"+time+"_"+nbWordWrite+"_"+nbWordFailed+"_"+nbCharactere+"_"+photoPath);
-
+                   String scoreStr = name + "_" + time + "_" + nbWordWrite + "_" + nbWordWrittenCaracteres + "_" + nbCaractere + "_" + photoPath;
+                   writer.write(scoreStr);
+                    printWriter.println();
                 }
+                printWriter.close();
                 writer.close();
                fos.close();
 

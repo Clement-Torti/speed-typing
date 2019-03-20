@@ -20,11 +20,12 @@ import java.util.Vector;
 public class Partie extends Subject implements Serializable, IObserver{
     public static final long serialversionUID = 129348938L;
     public static final int NB_LIFE = 5;
+    public static int WORD_DELAY = 2;
     private int chrono;
     private int nbWordWrite;
-    private int nbWordFailed;
     private int nbLife;
     private int nbCaractere;
+    private int nbWordWrittenCarateres;
 
     private WordDatabase wordDb;
     private List<Word> displayedWord = new ArrayList<>();
@@ -33,9 +34,9 @@ public class Partie extends Subject implements Serializable, IObserver{
     public Partie(Context context, WordType wordType) {
         chrono = 0;
         nbWordWrite = 0;
-        nbWordFailed = 0;
         nbLife = NB_LIFE;
         nbCaractere = 0;
+        nbWordWrittenCarateres = 0;
 
         wordDb = WordFactory.createWordDatabase(context, wordType);
     }
@@ -55,8 +56,7 @@ public class Partie extends Subject implements Serializable, IObserver{
 
         if(bool) {
             nbWordWrite++;
-        } else {
-            nbWordFailed++;
+            nbWordWrittenCarateres += word.getText().length();
         }
 
         return bool;
@@ -87,9 +87,14 @@ public class Partie extends Subject implements Serializable, IObserver{
     }
 
     /*
-    * Nombre de caracteres total
+    * Nombre de caracteres total tappé par l'utilisateur
      */
     public int getNbCaractere() { return nbCaractere; }
+
+    /*
+    * Total des caracteres des mots écrits
+     */
+    public int getNbWordWrittenCarateres() { return nbWordWrittenCarateres; }
 
     /*
      * Ajout d'une mot dans displayedWord, notify les observateurs du changement
@@ -121,8 +126,6 @@ public class Partie extends Subject implements Serializable, IObserver{
 
     public int getNbWordWrite() { return nbWordWrite; }
 
-    public int getNbWordFailed() { return nbWordFailed; }
-
     public int getNbLife() { return nbLife; }
 
     @Override
@@ -134,7 +137,7 @@ public class Partie extends Subject implements Serializable, IObserver{
     public void chronoUpdate() {
         chrono++;
 
-        if(chrono % 3 == 0) {
+        if(chrono % WORD_DELAY == 0) {
             addNewWord();
         }
 
@@ -157,6 +160,18 @@ public class Partie extends Subject implements Serializable, IObserver{
 
 
     public List<Word> getWords() { return displayedWord; }
+
+    public int minWordLength() {
+        int min = 100;
+
+        for(Word word : displayedWord) {
+            if(word.getText().length() < min) {
+                min = word.getText().length();
+            }
+        }
+
+        return min;
+    }
 
 }
 

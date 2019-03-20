@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -52,7 +51,9 @@ public class GameActivity extends BaseActivity implements IObserver {
 
         // get l'orientation de l'ecran et enregistre si il est vertical
         screenIsVertical = getResources().getConfiguration().orientation == 1;
-        
+
+        Log.d("jonathan", screenIsVertical +" ");
+
         // Configuration des boutons
         pauseBtn = findViewById(R.id.pauseBtn);
 
@@ -101,7 +102,7 @@ public class GameActivity extends BaseActivity implements IObserver {
     @Override
     public void chronoUpdate() {
         // Increment la difficultee progressivement
-        DIFICULTY += 0.5;
+        DIFICULTY += 2;
 
         // Met à jour la vue
         updateUI();
@@ -140,6 +141,8 @@ public class GameActivity extends BaseActivity implements IObserver {
             showKeyboard();
         }
         updateUI();
+
+
     }
 
     private void quit() {
@@ -163,12 +166,22 @@ public class GameActivity extends BaseActivity implements IObserver {
                 wordsPos.add(pos);
             }
             partie.setWordsPositions(wordsPos);
+
         }
 
         // On se desabonne à la partie
         partie.dettach(this);
         gameTimer.dettach(this);
         gameTimer.dettach(partie);
+
+        if (screenIsVertical) {
+
+            // Ferme le clavier
+            closeKeyboard();
+        }
+
+        // Arret du timer
+        gameTimer.pause();
     }
 
     /*
@@ -176,15 +189,17 @@ public class GameActivity extends BaseActivity implements IObserver {
      */
     @Override
     protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
-
+        SoundBox.stopMusic();
         quit();
         super.changeActivity(cls, args);
+
+
     }
 
     @Override
     protected void onPause() {
         // Arrete le son
-        //SoundBox.pauseMusic();
+        SoundBox.pauseMusic();
 
         quit();
         super.onPause();
@@ -209,12 +224,11 @@ public class GameActivity extends BaseActivity implements IObserver {
         format.setMaximumFractionDigits(2);
         nbCaracteresView.setText(getResources().getString(R.string.nbCaracterePerSec) + ": " + format.format(partie.nbCaracterePerSec()));
         nbMotsEcritsView.setText(getResources().getString(R.string.nbWordWrite) + ": " + partie.getNbWordWrite());
-        nbMotsRatesView.setText(getResources().getString(R.string.nbWordMissed) + ": " + partie.getNbWordFailed());
         nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());
 
-
+        System.out.println("updateUICall");
         if (screenIsVertical) {
-            // Fait descendre la vue plus ou moins vite en fonction de la difficulté
+            // Fait descendre la vue plus ou mpins vite en fonction de la difficulté
             for (TextView t : wordViewList) {
                 float newY = t.getY() + DIFICULTY;
                 t.setY(newY);
@@ -225,13 +239,21 @@ public class GameActivity extends BaseActivity implements IObserver {
                     Word word = new Word(texte);
                     partie.wordMissed(word);
                     deletedWordView.add(t);
+
                 }
 
-                // Changer la couleur du texte en fonction de la hauteur
-                int redValue = (int) ((255 * newY) / SCREEN_BOTTOM);
-                t.setTextColor(Color.argb(255, redValue, 255 - redValue, 0));
+                if (!editText.getText().toString().isEmpty() && t.getText().toString().startsWith(editText.getText().toString())) {
+                    // Mettre en bleu les mot en cours d'écriture
+                    t.setTextColor(Color.argb(255, 150, 150, 255));
+                } else {
+                    // Changer la couleur du texte en fonction de la hauteur
+                    int redValue = (int) ((255 * newY) / SCREEN_BOTTOM);
+                    t.setTextColor(Color.argb(255, redValue, 255 - redValue, 0));
+                }
+
 
             }
+        }
 
 
             // Supprime les textView arrivées en bas
@@ -240,8 +262,6 @@ public class GameActivity extends BaseActivity implements IObserver {
                 wordViewList.remove(textView);
             }
         }
-
-    }
 
 
     /*
@@ -287,30 +307,25 @@ public class GameActivity extends BaseActivity implements IObserver {
                 // Informer la partie qu'un caractère vient d'être écrit
                 partie.caractereWritten();
 
+                // Cherche un mot de la vue correspondant pour le supprimer
+                String text = editText.getText().toString().replace(" ", "");
+                Word written = new Word(text);
+
+                // On vérifie si ce mot est assez long pour exister dans la vue
+                if(text.length() >= partie.minWordLength()) {
+
+                    // on verifie s'il existe
+                    if(partie.wordWritten(written)) {
+                        deleteViewWithText(text);
+                        editText.setText("");
+                        SoundBox.playSuccessSound(getApplicationContext());
+                    }
+                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-            }
-        });
-
-        // Lorsque l'utilisateur clique sur la touche entrée
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = editText.getText().toString().replace(" ", "");
-                Word wordWritten = new Word(text);
-
-                // On vérifie si ce mot existe
-                if(partie.wordWritten(wordWritten)) {
-                    deleteViewWithText(text);
-                    SoundBox.playSuccessSound(getApplicationContext());
-                } else {
-                    SoundBox.playFailSound(getApplicationContext());
-                }
-
-                // On efface le texte de l'editText
-                editText.setText("");
             }
         });
     }

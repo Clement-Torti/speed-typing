@@ -1,10 +1,8 @@
 package com.example.speed_typing.model.Util;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.util.Log;
 
 import com.example.speed_typing.model.Scores;
@@ -14,15 +12,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ScoreReader {
     private static ArrayList<Scores> scoreLignes = new ArrayList<Scores>();
@@ -32,12 +25,14 @@ public class ScoreReader {
         String elements[];
 
         int nbWordWrite;
-        int nbWordFailed;
-        float nbCharactere;
+        int nbCharactere;
         String name;
         String photoPath;
         int time;
+        int nbWordWrittenCaracteres;
 
+        // Vider la liste des scores
+        scoreLignes.clear();
 
         try {
             //creation buffer
@@ -48,24 +43,24 @@ public class ScoreReader {
             BufferedReader br = new BufferedReader(ipsr);
 
 
+            // name + "_" + time + "_" + nbWordWrite + "_" + nbWordWrittenCaracteres + "_" + nbCharacterePerSec + "_" +photoPath
             while((ligne = br.readLine()) != null) {
                 elements = ligne.split("_");
-
                 name = elements[0];
 
                 time = Integer.parseInt(elements[1]);
 
                 nbWordWrite = Integer.parseInt(elements[2]);
 
-                nbWordFailed= Integer.parseInt(elements[3]);
+                nbWordWrittenCaracteres = Integer.parseInt(elements[3]);
 
-                nbCharactere = Float.parseFloat(elements[4]);
+                nbCharactere = Integer.parseInt(elements[4]);
 
                 photoPath = elements[5];
 
-                scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordFailed, nbCharactere, photoPath));
+                scoreLignes.add(new Scores(name, time, nbWordWrite, nbWordWrittenCaracteres, nbCharactere, photoPath));
             }
-
+            System.out.println("Lecture effectuée");
             ips.close();
             ipsr.close();
             br.close();
