@@ -1,27 +1,16 @@
 package com.example.speed_typing;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import com.example.speed_typing.model.Observer.Partie;
-import com.example.speed_typing.model.Word;
-import com.example.speed_typing.model.WordDatabase;
 import com.example.speed_typing.model.WordFactory;
 import com.example.speed_typing.model.WordType;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +19,7 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
 
     private Button startBtn;
     private Button scoresBtn;
+    //private Button fragmentBtn;
     private Spinner wordsSpinner;
 
     private WordType wordType = WordType.Francais;
@@ -42,9 +32,11 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
         // Boutons de navigation
         startBtn = findViewById(R.id.startBtn);
         scoresBtn = findViewById(R.id.scoresBtn);
+        //fragmentBtn = findViewById(R.id.fragmentBtn);
 
         configureNavigationBtn(startBtn, GameActivity.class, new HashMap<String, Serializable>());
         configureNavigationBtn(scoresBtn, ScoreActivity.class, new HashMap<String, Serializable>());
+        //configureNavigationBtn(fragmentBtn, FragmentActivity.class, new HashMap<String, Serializable>());
 
         // Spinner
         wordsSpinner = findViewById(R.id.wordsSpinner);

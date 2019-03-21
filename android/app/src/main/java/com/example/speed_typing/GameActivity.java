@@ -114,22 +114,14 @@ public class GameActivity extends BaseActivity implements IObserver {
         super.onResume();
 
 
-        removeWordView(wordViewList);
-        wordViewList.clear();
+        removeWordView(wordViewList, wordViewList);
+        //wordViewList.clear();
 
         // Démarre la musique
         SoundBox.playBackgroundSound(this);
 
         // S'abonner à la partie
         partie.attach(this);
-
-        if (screenIsVertical) {
-            // Remise en place des wordViews si on revient de PauseActivity
-            configureWordView();
-
-            // Setup editText
-            configureEditText();
-        }
 
         // Création du timer
         gameTimer = new GameTimer(this);
@@ -139,7 +131,12 @@ public class GameActivity extends BaseActivity implements IObserver {
 
 
         if (screenIsVertical) {
-            //if (screenIsVertical) {
+            // Remise en place des wordViews si on revient de PauseActivity
+            configureWordView();
+
+            // Setup editText
+            configureEditText();
+
             gameTimer.start();
 
             // Ouvre le clavier
@@ -260,19 +257,22 @@ public class GameActivity extends BaseActivity implements IObserver {
             }
         }
 
+        removeWordView(deletedWordView, wordViewList);
+        /*
         // Supprime les textView arrivées en bas
         for (TextView textView : deletedWordView) {
             ((ViewGroup) textView.getParent()).removeView(textView);
             wordViewList.remove(textView);
-        }
+        }*/
     }
 
     // Supprime les textView
-    private void removeWordView (List<TextView> wordViewList){
+    private void removeWordView (List<TextView> wordViewList, List<TextView> aDeletedWordView){
         for (Iterator<TextView> a = wordViewList.iterator(); a.hasNext(); ){
             TextView textView = a.next();
             ((ViewGroup) textView.getParent()).removeView(textView);
         }
+        aDeletedWordView.removeAll(wordViewList);
     }
 
     /*

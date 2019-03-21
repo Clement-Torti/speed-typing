@@ -24,6 +24,7 @@
 
     <string name="GameIsHorizontal1">You can\'t play if the screen is horizontal</string>
     <string name="GameIsHorizontal2">Pls turn you phone</string>
+    <string name="fragment_btn">fragment</string>
     
     <string-array name="wordsFamily">
         <item>Français</item>

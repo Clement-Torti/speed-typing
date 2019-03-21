@@ -59,7 +59,7 @@
 
             <TextView
                 android:layout_width="100dp"
-                android:layout_height="80dp"
+                android:layout_height="55dp"
                 android:layout_gravity="center"
                 android:background="@color/colorWhite"
                 android:padding="10dp"
@@ -69,7 +69,7 @@
             <Spinner
                 android:id="@+id/wordsSpinner"
                 android:layout_width="100dp"
-                android:layout_height="30dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:background="@color/colorWhite"
                 android:padding="5dp"
@@ -88,11 +88,20 @@
 
         <Button
             android:id="@+id/scoresBtn"
+            android:layout_marginRight="10dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:background="@color/colorWhite"
             android:text="@string/scores_btn" />
+
+        <Button
+            android:id="@+id/fragmentBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@color/colorWhite"
+            android:text="@string/fragment_btn" />
     </LinearLayout>
 
 
