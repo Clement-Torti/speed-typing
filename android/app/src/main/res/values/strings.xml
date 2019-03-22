@@ -21,10 +21,13 @@
     <string name="homeTitle">Welcome to speed-typing!</string>
     <string name="homeDesc">Begin a new Game</string>
     <string name="chooseCategory">Choose category</string>
-    
+
     <string-array name="wordsFamily">
         <item>Français</item>
         <item>English</item>
     </string-array>
+
+    <string name="cameraUnavailable">Camera unavailable</string>
+    <string name="cameraAccess">You should accept the use of the camera to take a picture</string>
 
 </resources>

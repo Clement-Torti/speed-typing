@@ -29,4 +29,7 @@
         <item>English</item>
     </string-array>
 
+    <string name="cameraUnavailable">Camera indisponible</string>
+    <string name="cameraAccess">Vous devez autoriser l\'utilisation de la caméra pour continuer</string>
+
 </resources>

@@ -1,9 +1,13 @@
 package com.example.speed_typing;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +33,7 @@ import java.util.Map;
 
 public class EndGameActivity extends BaseActivity {
 
+    private Button cameraButton;
     private ImageView userPhotoView;
     private TextView timeView;
     private TextView nbWordWrittenView;
@@ -47,6 +52,8 @@ public class EndGameActivity extends BaseActivity {
         homeBtn = findViewById(R.id.homeBtn);
         configureNavigationBtn(homeBtn, AccueilActivity.class, new HashMap<String, Serializable>());
         homeBtn.setEnabled(false);
+        cameraButton = (Button) findViewById(R.id.cameraBtn);
+        configureNavigationBtn(cameraButton, CameraActivity.class, new HashMap<String, Serializable>());
 
         // affchage des résultats
         userPhotoView = (ImageView) findViewById(R.id.userPhotoView);
@@ -75,18 +82,12 @@ public class EndGameActivity extends BaseActivity {
         nbCaractereView.setText(format.format(partie.nbCaracterePerSec()) + "");
     }
 
-    /*
-    * Prend une photo avec l'appareil
-     */
-    public void takePicture(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-    }
+
 
     /*
     * Evenement appelez lorsque l'utilisateur à pris une photo
      */
-
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -96,13 +97,17 @@ public class EndGameActivity extends BaseActivity {
         homeBtn.setEnabled(true);
 
     }
+*/
 
     @Override
     protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
         super.changeActivity(cls, args);
 
-        // Sauvegarder la partie
-        saveGame();
+        if(cls == AccueilActivity.class) {
+            // Sauvegarder la partie
+            saveGame();
+        }
+
     }
 
     /*
