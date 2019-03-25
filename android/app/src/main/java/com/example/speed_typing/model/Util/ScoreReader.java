@@ -93,13 +93,15 @@ public class ScoreReader {
 
         try {
             // On lit tous les bytes du fichier
-            File file = new File(context.getFilesDir() + "/" + filePath);
+            File file = new File(context.getFilesDir() + File.separator + filePath);
             InputStream in = new BufferedInputStream(new FileInputStream(file));
             byte[] buf = new byte[(int) file.length()];
             int numRead = in.read(buf);
 
             // On convertie ces bytes en Bitmap
             img = BitmapFactory.decodeByteArray(buf, 0, numRead);
+
+            //System.out.println("appelé après la conversion : " + img);
 
         } catch(FileNotFoundException e) {
             Log.d("readImage", "fichier " + filePath + " introuvable");

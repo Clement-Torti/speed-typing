@@ -47,7 +47,7 @@ public class ScoreActivity extends BaseActivity {
 
     private void configureListView() {
         List<Scores> scores = ScoreReader.read(this);
-        System.out.println("nbScores: " + scores.size());
+        System.out.println("scores : " + scores.size());
         ScoreAdapter adapter = new ScoreAdapter(this, scores, getLayoutInflater());
         scoresListView.setAdapter(adapter);
     }

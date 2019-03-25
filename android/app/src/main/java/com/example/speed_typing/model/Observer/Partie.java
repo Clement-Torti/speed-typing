@@ -67,6 +67,7 @@ public class Partie extends Subject implements Serializable, IObserver{
     public boolean wordMissed(Word word) {
         boolean res = displayedWord.remove(word);
         nbLife--;
+
         // Notifier
         return res;
     }
@@ -170,6 +171,14 @@ public class Partie extends Subject implements Serializable, IObserver{
 
         return min;
     }
+
+    /*
+    * Supprime tous les mots de WordDatabase pour accélérer la sérialisation
+     */
+    public void clearWords() {
+        wordDb.clearWords();
+    }
+
 
 }
 

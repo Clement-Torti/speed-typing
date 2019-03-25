@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 public class BaseActivity extends AppCompatActivity {
-    Partie partie;
+    protected Partie partie;
 
 
     @Override

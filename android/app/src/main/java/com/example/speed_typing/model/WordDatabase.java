@@ -47,4 +47,8 @@ public class WordDatabase implements Serializable {
         int index = rand.nextInt(words.size());
         return words.get(index);
     }
+
+    public void clearWords() {
+        words.clear();
+    }
 }

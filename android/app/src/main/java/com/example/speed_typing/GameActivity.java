@@ -171,6 +171,11 @@ public class GameActivity extends BaseActivity implements IObserver {
     @Override
     protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
 
+        // Pour les performances
+        if(cls == EndGameActivity.class) {
+            partie.clearWords();
+        }
+
         quit();
         super.changeActivity(cls, args);
     }
@@ -205,7 +210,6 @@ public class GameActivity extends BaseActivity implements IObserver {
         nbMotsEcritsView.setText(getResources().getString(R.string.nbWordWrite) + ": " + partie.getNbWordWrite());
         nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());
 
-        System.out.println("updateUICall");
         // Fait descendre la vue plus ou mpins vite en fonction de la difficulté
         for(TextView t : wordViewList) {
             float newY = t.getY() + DIFICULTY;

@@ -3,6 +3,7 @@ package com.example.speed_typing;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.hardware.camera2.*;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,16 +14,22 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.speed_typing.model.Util.ScoreWriter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends BaseActivity {
 
     private Camera camera;
+    private String photoPath;
     // Image prise par l'utilisateur
 
     private Camera.PictureCallback picture = new Camera.PictureCallback() {
@@ -30,27 +37,39 @@ public class CameraActivity extends AppCompatActivity {
         /*
          * Appelé lorsqu'une image est enregistrée par l'utilisateur
          */
-        /*
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
+            // On génère le fichier de l'image dans un chemin
+            photoPath = ScoreWriter.generateRandomPath();
+            File pictureFile = new File(getFilesDir() + File.separator + photoPath);
+
             if (pictureFile == null){
-                Log.d(TAG, "Error creating media file, check storage permissions");
+                Log.d("onPictureTaken", "Problème de création d'un fichier dans onPictureTaken");
                 return;
             }
 
             try {
+                // On écrit les données de l'image dans le nouveau fichier
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
+
+                // Une fois l'image enregistrée, on retourne dans la endGameActivity
+                Map<String, Serializable> photoParams = new HashMap<>();
+                photoParams.put("photoPath", photoPath);
+                changeActivity(EndGameActivity.class, photoParams);
+
+
             } catch (FileNotFoundException e) {
-                Log.d(TAG, "File not found: " + e.getMessage());
+                Log.d("onPictureTaken", "File not found: " + e.getMessage());
             } catch (IOException e) {
-                Log.d(TAG, "Error accessing file: " + e.getMessage());
+                Log.d("onPictureTaken", "Error accessing file: " + e.getMessage());
             }
 
         }
-        */
+
+
+
     };
 
 
@@ -120,9 +139,11 @@ public class CameraActivity extends AppCompatActivity {
     * Quand l'utilisateur prend une photo
      */
     public void takeSnapshot(View view) {
+        // Appelle le pictureCallback pour prévenir que l'utilisateur à cliquer sur le bouton photo
         camera.takePicture(null, null, picture);
 
     }
+
 
 
 }

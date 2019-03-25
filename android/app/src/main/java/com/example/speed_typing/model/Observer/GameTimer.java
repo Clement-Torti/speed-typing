@@ -33,7 +33,7 @@ public class GameTimer extends Subject {
              }
          };
 
-         timer.scheduleAtFixedRate(task, 0l, 1000l);
+         timer.scheduleAtFixedRate(task, 0l, 500l);
     }
 
      public void pause() {

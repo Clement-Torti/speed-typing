@@ -30,4 +30,6 @@
     <string name="cameraUnavailable">Camera unavailable</string>
     <string name="cameraAccess">You should accept the use of the camera to take a picture</string>
 
+    <string name="saveGameDenied">You should provide a name and a photo</string>
+
 </resources>
