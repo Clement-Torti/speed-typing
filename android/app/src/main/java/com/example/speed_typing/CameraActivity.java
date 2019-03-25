@@ -106,13 +106,24 @@ public class CameraActivity extends BaseActivity {
     * Accède à une instance de la camera
      */
     private Camera getCameraInstance() {
+        int cameraCount = 0;
         Camera c = null;
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
 
-        try {
-            c = Camera.open();
-        } catch (Exception e) {
-            Toast.makeText(this, R.string.cameraUnavailable, Toast.LENGTH_SHORT).show();
+        cameraCount = Camera.getNumberOfCameras();
+        for(int i=0; i<cameraCount; i++) {
+            Camera.getCameraInfo(i, cameraInfo);
+            if(cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                try {
+                    c = Camera.open(i);
+                    return c;
+                } catch (Exception e) {
+                    Toast.makeText(this, R.string.cameraUnavailable, Toast.LENGTH_SHORT).show();
+                }
+            }
         }
+
+
 
         return c;
     }

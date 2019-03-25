@@ -58,10 +58,11 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
         // Les changements doivent etre effectué ici
         // En fonction de l'orientation de la camera, on la met en mode portrait ou paysage
+
         if(w > h) {
             mCamera.setDisplayOrientation(0);
         } else {
-            mCamera.setDisplayOrientation(90);
+            mCamera.setDisplayOrientation(270);
         }
 
         // start preview with new settings
