@@ -60,6 +60,7 @@ public class ScoreWriter {
 
         }
     }
+    /*
 
     // Ecrit une image dans un fichier binaire
     public static String writeImage(Bitmap img, Context context) {
@@ -80,6 +81,7 @@ public class ScoreWriter {
 
         return pathName;
     }
+    */
 
     public static String generateRandomPath() {
         Random r = new Random();

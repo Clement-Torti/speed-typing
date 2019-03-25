@@ -33,4 +33,9 @@
         <item>English</item>
     </string-array>
 
+    <string name="cameraUnavailable">Camera indisponible</string>
+    <string name="cameraAccess">Vous devez autoriser l\'utilisation de la caméra pour continuer</string>
+
+    <string name="saveGameDenied">Vous devez fournir une photo et un nom opur continuer</string>
+
 </resources>

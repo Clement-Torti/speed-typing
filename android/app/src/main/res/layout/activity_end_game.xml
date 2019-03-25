@@ -36,14 +36,11 @@
             android:src="@drawable/user"/>
 
         <Button
-            android:onClick="takePicture"
+            android:id="@+id/cameraBtn"
             android:layout_below="@id/userPhotoView"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/userPhotoView"
-            android:layout_alignBottom="@+id/userPhotoView"
-
             android:layout_margin="5dp"
             android:layout_toStartOf="@+id/userPhotoView"
             android:layout_toLeftOf="@+id/userPhotoView"

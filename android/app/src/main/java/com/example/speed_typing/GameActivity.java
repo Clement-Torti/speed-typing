@@ -191,6 +191,12 @@ public class GameActivity extends BaseActivity implements IObserver {
      */
     @Override
     protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
+
+        // Pour les performances
+        if(cls == EndGameActivity.class) {
+            partie.clearWords();
+        }
+
         SoundBox.stopMusic();
         quit();
         super.changeActivity(cls, args);

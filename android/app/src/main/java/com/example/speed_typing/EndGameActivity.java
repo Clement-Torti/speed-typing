@@ -1,9 +1,14 @@
 package com.example.speed_typing;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.speed_typing.model.Scores;
 import com.example.speed_typing.model.Util.ScoreReader;
@@ -21,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -29,6 +36,7 @@ import java.util.Map;
 
 public class EndGameActivity extends BaseActivity {
 
+    private Button cameraButton;
     private ImageView userPhotoView;
     private TextView timeView;
     private TextView nbWordWrittenView;
@@ -37,16 +45,21 @@ public class EndGameActivity extends BaseActivity {
     private Button homeBtn;
     private Bitmap image;
     private EditText nameView;
+    private String photoPath = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
 
+
+
         // Configuration des boutons de navigation
         homeBtn = findViewById(R.id.homeBtn);
         configureNavigationBtn(homeBtn, AccueilActivity.class, new HashMap<String, Serializable>());
         homeBtn.setEnabled(false);
+        cameraButton = (Button) findViewById(R.id.cameraBtn);
+        configureNavigationBtn(cameraButton, CameraActivity.class, new HashMap<String, Serializable>());
 
         // affchage des résultats
         userPhotoView = (ImageView) findViewById(R.id.userPhotoView);
@@ -58,6 +71,17 @@ public class EndGameActivity extends BaseActivity {
 
         // Donne un nom
         nameView = (EditText) findViewById(R.id.nameView);
+
+        // Si l'on revient de CameraActivity, on a une image enregistrée, on l'affiche
+        if(getIntent().hasExtra("photoPath")) {
+            photoPath = (String) getIntent().getExtras().getSerializable("photoPath");
+            Bitmap image = ScoreReader.readImage(photoPath, this);
+            // Affichage dans l'imageView
+            userPhotoView.setImageBitmap(image);
+            homeBtn.setEnabled(true);
+
+        }
+
 
     }
 
@@ -75,34 +99,17 @@ public class EndGameActivity extends BaseActivity {
         nbCaractereView.setText(format.format(partie.nbCaracterePerSec()) + "");
     }
 
-    /*
-    * Prend une photo avec l'appareil
-     */
-    public void takePicture(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-    }
 
-    /*
-    * Evenement appelez lorsque l'utilisateur à pris une photo
-     */
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        image = (Bitmap) data.getExtras().get("data");
-        userPhotoView.setImageBitmap(image);
-        homeBtn.setEnabled(true);
-
-    }
 
     @Override
     protected void changeActivity(Class<?> cls, Map<String, Serializable> args) {
         super.changeActivity(cls, args);
 
-        // Sauvegarder la partie
-        saveGame();
+        if(cls == AccueilActivity.class) {
+            // Sauvegarder la partie
+            saveGame();
+        }
+
     }
 
     /*
@@ -110,7 +117,6 @@ public class EndGameActivity extends BaseActivity {
      */
     private void saveGame() {
         // On créer le nouveau score
-        String photoPath = ScoreWriter.writeImage(image, getApplicationContext());
         String name = nameView.getText().toString();
         int time = partie.getChrono();
         int nbWordWrite = partie.getNbWordWrite();
