@@ -30,7 +30,7 @@ import java.util.Random;
 import java.util.Vector;
 
 public class GameActivity extends BaseActivity implements IObserver {
-    private static int CHAR_SIZE = 40;()
+    private static int CHAR_SIZE = 40;
     private static int FONT_SIZE = 20;
     private float DIFICULTY = 35;
     private static double SCREEN_BOTTOM;
