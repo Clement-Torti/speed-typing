@@ -29,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * Encapsule le code lié à la navigation d'une activité à l'autre par un bouton.
      */
-    void configureNavigationBtn(Button btn, final Class<?> cls, final Map<String, Serializable> args) {
+    protected void configureNavigationBtn(Button btn, final Class<?> cls, final Map<String, Serializable> args) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

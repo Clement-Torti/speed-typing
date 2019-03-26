@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AccueilActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+public class AAccueilActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
     private Button startBtn;
     private Button scoresBtn;

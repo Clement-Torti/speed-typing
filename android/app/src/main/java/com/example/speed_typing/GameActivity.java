@@ -30,7 +30,7 @@ import java.util.Random;
 import java.util.Vector;
 
 public class GameActivity extends BaseActivity implements IObserver {
-    private static int CHAR_SIZE = 40;
+    private static int CHAR_SIZE = 40;()
     private static int FONT_SIZE = 20;
     private float DIFICULTY = 35;
     private static double SCREEN_BOTTOM;
@@ -415,7 +415,7 @@ public class GameActivity extends BaseActivity implements IObserver {
     /*
     * Ouvre le clavier dès le lancement de l'activité
      */
-    public void showKeyboard() {
+    private void showKeyboard() {
         editText.requestFocus();
         InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
@@ -424,7 +424,7 @@ public class GameActivity extends BaseActivity implements IObserver {
     /*
     * Ferme le clavier à la fermture de l'activité
      */
-    public void closeKeyboard() {
+    private void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager)getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
