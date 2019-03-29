@@ -36,7 +36,7 @@ public class AccueilActivity extends BaseActivity implements AdapterView.OnItemS
 
         configureNavigationBtn(startBtn, GameActivity.class, new HashMap<String, Serializable>());
         configureNavigationBtn(scoresBtn, ScoreActivity.class, new HashMap<String, Serializable>());
-        //configureNavigationBtn(fragmentBtn, FragmentActivity.class, new HashMap<String, Serializable>());
+        //configureNavigationBtn(fragmentBtn, FragmentActivity.class, new HashMap<String, Serializable>()); fragments non fonctionnel
 
         // Spinner
         wordsSpinner = findViewById(R.id.wordsSpinner);

@@ -156,10 +156,8 @@ public class GameActivity extends BaseActivity implements IObserver {
             // Ferme le clavier
             closeKeyboard();
 
-            Log.d("jonathan","je save");
             // Sauvegarde des positions des éléments
             List<Vector<Integer>> wordsPos = new ArrayList<>();
-            Log.d("jonathan","wordViewList size = "+wordViewList.size());
             for (TextView wordView : wordViewList) {
                 Vector<Integer> pos = new Vector<>();
                 pos.add((int) wordView.getX());
@@ -234,7 +232,6 @@ public class GameActivity extends BaseActivity implements IObserver {
         nbMotsEcritsView.setText(getResources().getString(R.string.nbWordWrite) + ": " + partie.getNbWordWrite());
         nbLifeView.setText(getResources().getString(R.string.nbLife) + ": " + partie.getNbLife());
 
-        System.out.println("updateUICall");
         if (screenIsVertical) {
             // Fait descendre la vue plus ou mpins vite en fonction de la difficulté
             for (TextView t : wordViewList) {
