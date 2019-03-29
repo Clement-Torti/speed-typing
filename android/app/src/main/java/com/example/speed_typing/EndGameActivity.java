@@ -124,7 +124,6 @@ public class EndGameActivity extends BaseActivity {
         int nbWordWrittenCaractere = partie.getNbWordWrittenCarateres();
 
         Scores newScore = new Scores(name, time, nbWordWrite, nbWordWrittenCaractere, nbCaractere, photoPath);
-
         // On récupère la liste des scores
         List<Scores> scores = ScoreReader.read(getApplicationContext());
 
